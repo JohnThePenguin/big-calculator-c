@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 #include <string.h>
 #include "vector.h"
+
+#define max(a, b) ((a) > (b) ? (a) : (b))
 
 struct Number;
 void setNumber(struct Number* a, const char* value, size_t size);
@@ -39,6 +40,29 @@ struct Number* copyNumber(struct Number* a, struct Number* b){
     }
 
     return copied;
+}
+
+struct Number* addNumbers(struct Number* a, struct Number* b){
+    struct Vector* result = createVector();
+
+    int temp = 0;
+    for(int i = 0; i < max(a->number->size, b->number->size); i++){
+        if(i < a->number->size)
+            temp += a->number->value[i] - '0';
+
+        if(i < b->number->size)
+            temp += b->number->value[i] - '0';
+        
+        pushVector(result, '0' + (temp % 10));
+        temp /= 10;
+    }
+
+    if(temp > 0)
+        pushVector(result, '0' + temp);
+
+    struct Number* final = createNumber("", 0);
+    final->number = result;
+    return final;
 }
 
 void printNumber(struct Number* a){

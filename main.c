@@ -2,8 +2,9 @@
 #include "numbers.h"
 
 int main(){
-    struct Number* one = createNumber("4096", 4);
-    struct Number* two = createNumber("102400", 6);
+    struct Number* one = createNumber("243612", 6);
+    struct Number* two = createNumber("5332", 4);
 
-    printNumber(addNumbers(one, two));
+    printNumber(multiplyNumbers(two, one));
+    printNumber(addNumbers(two, one));
 }

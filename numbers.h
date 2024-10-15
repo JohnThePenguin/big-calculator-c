@@ -42,6 +42,12 @@ struct Number* copyNumber(struct Number* a, struct Number* b){
     return copied;
 }
 
+void cleanZeros(struct Number* a){
+    while(a->number->value[a->number->size - 1] == '0'){
+        popVector(a->number);
+    }
+}
+
 struct Number* addNumbers(struct Number* a, struct Number* b){
     struct Vector* result = createVector();
 
@@ -62,6 +68,36 @@ struct Number* addNumbers(struct Number* a, struct Number* b){
 
     struct Number* final = createNumber("", 0);
     final->number = result;
+    return final;
+}
+
+struct Number* multiplyNumbers(struct Number* a, struct Number* b){
+    struct Vector* result = createVector();
+
+    long long rest = 0;
+    size_t max_size = max(a->number->size, b->number->size);
+
+    for(int i = 0; i < 2 * max_size; i++){
+
+        for(int j = i; j >= 0; j--){
+
+            if((j < a->number->size) && (i - j < b->number->size)){
+                rest += (
+                    (a->number->value[j] - '0') *
+                    (b->number->value[i - j] - '0')
+                );
+            }
+        }
+        
+        pushVector(result, rest % 10 + '0');
+
+        rest /= 10;
+    }
+
+    struct Number* final = createNumber("", 0);
+    final->number = result;
+    cleanZeros(final);
+
     return final;
 }
 

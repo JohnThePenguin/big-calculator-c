@@ -18,7 +18,7 @@ struct Number* createNumber(const char* value, size_t size){
     struct Number* a = malloc(sizeof(struct Number));
     a->number = createVector();
     a->system = 10;
-    pushVector(a->number, '0');
+    pushVector(a->number, 0);
 
     if(size) setNumber(a, value, size);
 
@@ -28,7 +28,7 @@ struct Number* createNumber(const char* value, size_t size){
 void setNumber(struct Number* a, const char* value, size_t size){
     emptyVector(a->number);
     for(int i = size - 1; i >= 0; i--){
-        pushVector(a->number, value[i]);
+        pushVector(a->number, value[i] - '0');
     }
 }
 
@@ -43,7 +43,7 @@ struct Number* copyNumber(struct Number* a, struct Number* b){
 }
 
 void cleanZeros(struct Number* a){
-    while(a->number->value[a->number->size - 1] == '0'){
+    while(a->number->value[a->number->size - 1] == 0){
         popVector(a->number);
     }
 }
@@ -54,17 +54,17 @@ struct Number* addNumbers(struct Number* a, struct Number* b){
     int temp = 0;
     for(int i = 0; i < max(a->number->size, b->number->size); i++){
         if(i < a->number->size)
-            temp += a->number->value[i] - '0';
+            temp += a->number->value[i];
 
         if(i < b->number->size)
-            temp += b->number->value[i] - '0';
+            temp += b->number->value[i];
         
-        pushVector(result, '0' + (temp % 10));
+        pushVector(result, temp % 10);
         temp /= 10;
     }
 
     if(temp > 0)
-        pushVector(result, '0' + temp);
+        pushVector(result, temp);
 
     struct Number* final = createNumber("", 0);
     final->number = result;
@@ -83,13 +83,13 @@ struct Number* multiplyNumbers(struct Number* a, struct Number* b){
 
             if((j < a->number->size) && (i - j < b->number->size)){
                 rest += (
-                    (a->number->value[j] - '0') *
-                    (b->number->value[i - j] - '0')
+                    (a->number->value[j]) *
+                    (b->number->value[i - j])
                 );
             }
         }
         
-        pushVector(result, rest % 10 + '0');
+        pushVector(result, rest % 10);
 
         rest /= 10;
     }
@@ -103,7 +103,7 @@ struct Number* multiplyNumbers(struct Number* a, struct Number* b){
 
 void printNumber(struct Number* a){
     for(int i = a->number->size - 1; i >= 0; i--){
-        printf("%c", a->number->value[i]);
+        printf("%c", a->number->value[i] + '0');
     }
     printf("\n");
 }

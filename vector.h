@@ -9,7 +9,7 @@ struct Vector {
 };
 
 struct Vector* createVector(){
-    struct Vector* a = malloc(sizeof(struct Vector));
+    struct Vector* a = (struct Vector*)malloc(sizeof(struct Vector));
     a->size = 0;
     a->allocated = 0;
     a->value = (char*)malloc(2 * sizeof(char));

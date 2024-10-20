@@ -15,7 +15,7 @@ struct Number {
 };
 
 struct Number* createNumber(const char* value, size_t size){
-    struct Number* a = malloc(sizeof(struct Number));
+    struct Number* a = (struct Number*)malloc(sizeof(struct Number));
     a->number = createVector();
     a->system = 10;
     pushVector(a->number, 0);
@@ -33,13 +33,20 @@ void setNumber(struct Number* a, const char* value, size_t size){
 }
 
 struct Number* copyNumber(struct Number* a, struct Number* b){
-    struct Number* copied = memcpy(a, b, sizeof(b));
+    struct Number* copied = (struct Number*)memcpy(a, b, sizeof(b));
 
     if(copied == NULL){
         error("Could not copy Number object");
     }
 
     return copied;
+}
+
+void printNumber(struct Number* a){
+    for(int i = a->number->size - 1; i >= 0; i--){
+        printf("%c", a->number->value[i] + '0');
+    }
+    printf("\n");
 }
 
 void cleanZeros(struct Number* a){
@@ -101,9 +108,85 @@ struct Number* multiplyNumbers(struct Number* a, struct Number* b){
     return final;
 }
 
-void printNumber(struct Number* a){
-    for(int i = a->number->size - 1; i >= 0; i--){
-        printf("%c", a->number->value[i] + '0');
+int subtractNumbers(struct Vector* a, struct Vector *b, int left, int right){
+    if(right - left + 1 < b->size){
+        return 0;
     }
-    printf("\n");
+
+    if(right - left + 1 == b->size){
+        for(int i = b->size - 1; i >= 0; i--){
+            if(b->value[i] > a->value[i + left]){
+                return 0;
+            }
+            else if(b->value[i] < a->value[i + left]){
+                break;
+            }
+        }
+    }
+
+    for(int i = 0; i <= right - left; i++){
+        if(b->size == i){
+            return 1;
+        }
+
+        if(a->value[i] >= b->value[i]){
+            a->value[i] -= b->value[i];
+        }
+        else{
+            int j = i + 1;
+            while(a->value[j] == 0)
+                a->value[j++] = 9;
+
+            a->value[j]--;
+            a->value[i] = 10 + a->value[i] - b->value[i];
+        }
+    }
+
+    return 1;
+}
+
+int divideManualNumbers(struct Vector* a, struct Vector *b, int left, int right){
+    int count = 0;
+
+    while(subtractNumbers(a, b, left, right) == 1){
+        while(a->value[right] == 0) right--;
+        count++;
+    }
+
+    return count;
+}
+
+//Not ready
+struct Number* divideNumbers(struct Number* a, struct Number* b){
+    if(a->number->size < b->number->size){
+        return createNumber("0", 1);
+    }
+
+    size_t a_size = a->number->size;
+    size_t b_size = b->number->size;
+
+    int left = a_size;
+    int right = a_size;
+
+    struct Number* result = createNumber("", 0);
+
+    while(1){
+        while(right - left + 1 < b_size && right > 0){
+            right--;
+        }
+
+        int count = divideManualNumbers(a->number, b->number, left, right);
+        
+        pushVector(result->number, count);
+
+
+        if(count == 0){
+            right--;
+            continue;
+        }
+
+        while(left > 0 && a->number->value[left] == 0){
+            left--;
+        }
+    }
 }

@@ -129,16 +129,16 @@ int subtractNumbers(struct Vector* a, struct Vector *b, int left, int right){
             return 1;
         }
 
-        if(a->value[i] >= b->value[i]){
-            a->value[i] -= b->value[i];
+        if(a->value[i + left] >= b->value[i]){
+            a->value[i + left] -= b->value[i];
         }
         else{
             int j = i + 1;
-            while(a->value[j] == 0)
-                a->value[j++] = 9;
+            while(a->value[j + left] == 0)
+                a->value[j++ + left] = 9;
 
-            a->value[j]--;
-            a->value[i] = 10 + a->value[i] - b->value[i];
+            a->value[j + left]--;
+            a->value[i + left] = 10 + a->value[i + left] - b->value[i];
         }
     }
 

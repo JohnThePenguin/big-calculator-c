@@ -2,35 +2,35 @@
 #include "numbers.h"
 
 int main(){
-    struct Number* one = createNumber("9800123", 7);
-    struct Number* two = createNumber("210", 3);
+    const char first[] = "10495121";
+    const char second[] = "892";
 
-    // printNumber(multiplyNumbers(two, one));
-    // printNumber(addNumbers(two, one));
+    struct Number* one = createNumber("10495121", 8);
+    struct Number* two = createNumber("892", 3);
 
-    int divide = divideManualNumbers(one->number, two->number, 0, 6);
-    printf("%d\n", divide);
-    cleanZeros(one);
-    printNumber(one);
+    struct Number* divide = divideNumbers(one, two);
 
-    return 0;
-
-    divide = subtractNumbers(one->number, two->number, 0, 3);
-    printf("%d\n", divide);
+    printf("Dividing:\n");
+    printNumber(divide);
+    printf("Rest:\n");
     printNumber(one);
 
 
-    divide = subtractNumbers(one->number, two->number, 0, 3);
-    printf("%d\n", divide);
-    printNumber(one);
+    // int divide = subtractNumbers(one->number, two->number, 4, 6);
+    // printf("%d\n", divide);
+    // printNumber(one);
+
+    // divide = subtractNumbers(one->number, two->number, 0, 3);
+    // printf("%d\n", divide);
+    // printNumber(one);
 
 
-    divide = subtractNumbers(one->number, two->number, 0, 3);
-    printf("%d\n", divide);
-    cleanZeros(one);
-    printNumber(one);
+    // divide = subtractNumbers(one->number, two->number, 0, 3);
+    // printf("%d\n", divide);
+    // cleanZeros(one);
+    // printNumber(one);
 
-    divide = subtractNumbers(one->number, two->number, 0, 3);
-    printf("%d\n", divide);
-    printNumber(one);
+    // divide = subtractNumbers(one->number, two->number, 0, 3);
+    // printf("%d\n", divide);
+    // printNumber(one);
 }

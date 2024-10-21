@@ -156,7 +156,17 @@ int divideManualNumbers(struct Vector* a, struct Vector *b, int left, int right)
     return count;
 }
 
-//Not ready
+struct Number* normalizeDividedNumber(struct Number* a){
+    size_t size = a->number->size;
+    for(int i = 0; i < size / 2; i++){
+        int t = a->number->value[i];
+        a->number->value[i] = a->number->value[size - i - 1];
+        a->number->value[size - i - 1] = t;
+    }
+    cleanZeros(a);
+    return a;
+}
+
 struct Number* divideNumbers(struct Number* a, struct Number* b){
     if(a->number->size < b->number->size){
         return createNumber("0", 1);
@@ -165,28 +175,31 @@ struct Number* divideNumbers(struct Number* a, struct Number* b){
     size_t a_size = a->number->size;
     size_t b_size = b->number->size;
 
-    int left = a_size;
-    int right = a_size;
+    int left = a_size - 1;
+    int right = a_size - 1;
 
     struct Number* result = createNumber("", 0);
 
-    while(1){
-        while(right - left + 1 < b_size && right > 0){
-            right--;
+    while(left > 0){
+        left--;
+        while(right - left + 1 < b_size){
+            left--;
+            pushVector(result->number, 0);
         }
 
         int count = divideManualNumbers(a->number, b->number, left, right);
         
         pushVector(result->number, count);
 
+        // printf("left: %d, right: %d, divide: %d\n", left, right, count);
+        // printNumber(result);
+        // printNumber(a);
 
-        if(count == 0){
+        while(right > 0 && a->number->value[right] == 0){
             right--;
-            continue;
-        }
-
-        while(left > 0 && a->number->value[left] == 0){
-            left--;
         }
     }
+
+    cleanZeros(a);
+    return normalizeDividedNumber(result);
 }

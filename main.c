@@ -2,11 +2,8 @@
 #include "numbers.h"
 
 int main(){
-    const char first[] = "10495121";
-    const char second[] = "892";
-
-    NumPointer one = createNumber("10495121", 8);
-    NumPointer two = createNumber("892", 3);
+    NumPointer one = createNumber(10495121);
+    NumPointer two = createNumber(892);
 
     NumPointer divide = divideNumbers(one, two);
 
@@ -16,9 +13,9 @@ int main(){
     printNumber(one);
 
 
-    // int divide = subtractNumbers(one->number, two->number, 4, 6);
-    // printf("%d\n", divide);
-    // printNumber(one);
+    NumPointer addition = addNumbers(one, two);
+    printf("Addition: \n");
+    printNumber(addition);
 
     // divide = subtractNumbers(one->number, two->number, 0, 3);
     // printf("%d\n", divide);

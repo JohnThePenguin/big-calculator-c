@@ -9,30 +9,34 @@ struct Number;
 
 typedef struct Number* NumPointer;
 
-void setNumber(NumPointer a, const char* value, size_t size);
-NumPointer createNumber(const char* value, size_t size);
+void setNumber(NumPointer a, int value);
+NumPointer createNumber(int value);
 
 struct Number {
     struct Vector* number;
     int system;
 };
 
-NumPointer createNumber(const char* value, size_t size){
+NumPointer createNumber(int value){
     NumPointer a = (NumPointer)malloc(sizeof(struct Number));
     a->number = createVector();
     a->system = 10;
+    
     pushVector(a->number, 0);
-
-    if(size) setNumber(a, value, size);
+    setNumber(a, value);
 
     return a;
 }
 
-void setNumber(NumPointer a, const char* value, size_t size){
+void setNumber(NumPointer a, int value){
     emptyVector(a->number);
-    for(int i = size - 1; i >= 0; i--){
-        pushVector(a->number, value[i] - '0');
+    if(value == -1){
+        return;
     }
+
+    do{
+        pushVector(a->number, value % 10);
+    }while(value /= 10);
 }
 
 NumPointer copyNumber(NumPointer a, NumPointer b){
@@ -76,7 +80,7 @@ NumPointer addNumbers(NumPointer a, NumPointer b){
     if(temp > 0)
         pushVector(result, temp);
 
-    NumPointer final = createNumber("", 0);
+    NumPointer final = createNumber(-1);
     final->number = result;
     return final;
 }
@@ -104,7 +108,7 @@ NumPointer multiplyNumbers(NumPointer a, NumPointer b){
         rest /= 10;
     }
 
-    NumPointer final = createNumber("", 0);
+    NumPointer final = createNumber(-1);
     final->number = result;
     cleanZeros(final);
 
@@ -172,7 +176,7 @@ NumPointer normalizeDividedNumber(NumPointer a){
 
 NumPointer divideNumbers(NumPointer a, NumPointer b){
     if(a->number->size < b->number->size){
-        return createNumber("0", 1);
+        return createNumber(0);
     }
 
     size_t a_size = a->number->size;
@@ -181,7 +185,7 @@ NumPointer divideNumbers(NumPointer a, NumPointer b){
     int left = a_size - 1;
     int right = a_size - 1;
 
-    NumPointer result = createNumber("", 0);
+    NumPointer result = createNumber(-1);
 
     while(left > 0){
         left--;

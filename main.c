@@ -5,10 +5,10 @@ int main(){
     const char first[] = "10495121";
     const char second[] = "892";
 
-    struct Number* one = createNumber("10495121", 8);
-    struct Number* two = createNumber("892", 3);
+    NumPointer one = createNumber("10495121", 8);
+    NumPointer two = createNumber("892", 3);
 
-    struct Number* divide = divideNumbers(one, two);
+    NumPointer divide = divideNumbers(one, two);
 
     printf("Dividing:\n");
     printNumber(divide);

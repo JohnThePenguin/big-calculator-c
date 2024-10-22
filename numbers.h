@@ -6,16 +6,19 @@
 #define max(a, b) ((a) > (b) ? (a) : (b))
 
 struct Number;
-void setNumber(struct Number* a, const char* value, size_t size);
-struct Number* createNumber(const char* value, size_t size);
+
+typedef struct Number* NumPointer;
+
+void setNumber(NumPointer a, const char* value, size_t size);
+NumPointer createNumber(const char* value, size_t size);
 
 struct Number {
     struct Vector* number;
     int system;
 };
 
-struct Number* createNumber(const char* value, size_t size){
-    struct Number* a = (struct Number*)malloc(sizeof(struct Number));
+NumPointer createNumber(const char* value, size_t size){
+    NumPointer a = (NumPointer)malloc(sizeof(struct Number));
     a->number = createVector();
     a->system = 10;
     pushVector(a->number, 0);
@@ -25,15 +28,15 @@ struct Number* createNumber(const char* value, size_t size){
     return a;
 }
 
-void setNumber(struct Number* a, const char* value, size_t size){
+void setNumber(NumPointer a, const char* value, size_t size){
     emptyVector(a->number);
     for(int i = size - 1; i >= 0; i--){
         pushVector(a->number, value[i] - '0');
     }
 }
 
-struct Number* copyNumber(struct Number* a, struct Number* b){
-    struct Number* copied = (struct Number*)memcpy(a, b, sizeof(b));
+NumPointer copyNumber(NumPointer a, NumPointer b){
+    NumPointer copied = (NumPointer)memcpy(a, b, sizeof(b));
 
     if(copied == NULL){
         error("Could not copy Number object");
@@ -42,20 +45,20 @@ struct Number* copyNumber(struct Number* a, struct Number* b){
     return copied;
 }
 
-void printNumber(struct Number* a){
+void printNumber(NumPointer a){
     for(int i = a->number->size - 1; i >= 0; i--){
         printf("%c", a->number->value[i] + '0');
     }
     printf("\n");
 }
 
-void cleanZeros(struct Number* a){
+void cleanZeros(NumPointer a){
     while(a->number->value[a->number->size - 1] == 0){
         popVector(a->number);
     }
 }
 
-struct Number* addNumbers(struct Number* a, struct Number* b){
+NumPointer addNumbers(NumPointer a, NumPointer b){
     struct Vector* result = createVector();
 
     int temp = 0;
@@ -73,12 +76,12 @@ struct Number* addNumbers(struct Number* a, struct Number* b){
     if(temp > 0)
         pushVector(result, temp);
 
-    struct Number* final = createNumber("", 0);
+    NumPointer final = createNumber("", 0);
     final->number = result;
     return final;
 }
 
-struct Number* multiplyNumbers(struct Number* a, struct Number* b){
+NumPointer multiplyNumbers(NumPointer a, NumPointer b){
     struct Vector* result = createVector();
 
     long long rest = 0;
@@ -101,7 +104,7 @@ struct Number* multiplyNumbers(struct Number* a, struct Number* b){
         rest /= 10;
     }
 
-    struct Number* final = createNumber("", 0);
+    NumPointer final = createNumber("", 0);
     final->number = result;
     cleanZeros(final);
 
@@ -156,7 +159,7 @@ int divideManualNumbers(struct Vector* a, struct Vector *b, int left, int right)
     return count;
 }
 
-struct Number* normalizeDividedNumber(struct Number* a){
+NumPointer normalizeDividedNumber(NumPointer a){
     size_t size = a->number->size;
     for(int i = 0; i < size / 2; i++){
         int t = a->number->value[i];
@@ -167,7 +170,7 @@ struct Number* normalizeDividedNumber(struct Number* a){
     return a;
 }
 
-struct Number* divideNumbers(struct Number* a, struct Number* b){
+NumPointer divideNumbers(NumPointer a, NumPointer b){
     if(a->number->size < b->number->size){
         return createNumber("0", 1);
     }
@@ -178,7 +181,7 @@ struct Number* divideNumbers(struct Number* a, struct Number* b){
     int left = a_size - 1;
     int right = a_size - 1;
 
-    struct Number* result = createNumber("", 0);
+    NumPointer result = createNumber("", 0);
 
     while(left > 0){
         left--;

@@ -1,8 +1,12 @@
+#ifndef NUMBERS_H
+#define NUMBERS_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "chars.h"
 #include "vector.h"
+#include "systems.h"
 
 #define max(a, b) ((a) > (b) ? (a) : (b))
 
@@ -225,3 +229,5 @@ NumPointer divideNumbers(NumPointer a, NumPointer b){
     cleanZeros(a);
     return normalizeDividedNumber(result);
 }
+
+#endif

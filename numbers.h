@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "chars.h"
 #include "vector.h"
 
 #define max(a, b) ((a) > (b) ? (a) : (b))
@@ -21,7 +22,7 @@ NumPointer createNumber(int value){
     NumPointer a = (NumPointer)malloc(sizeof(struct Number));
     a->number = createVector();
     a->system = 10;
-    
+
     pushVector(a->number, 0);
     setNumber(a, value);
 
@@ -39,6 +40,14 @@ void setNumber(NumPointer a, int value){
     }while(value /= 10);
 }
 
+void setNumberFromString(NumPointer a, const char* value, size_t size, int system){
+    emptyVector(a->number);
+    for(int i = size - 1; i >= 0; i--){
+        pushVector(a->number, num(value[i]));
+    }
+    a->system = system;
+}
+
 NumPointer copyNumber(NumPointer a, NumPointer b){
     NumPointer copied = (NumPointer)memcpy(a, b, sizeof(b));
 
@@ -49,9 +58,15 @@ NumPointer copyNumber(NumPointer a, NumPointer b){
     return copied;
 }
 
+void deleteNumber(NumPointer a){
+    deleteVector(a->number);
+    free(a);
+    a = NULL;
+}
+
 void printNumber(NumPointer a){
     for(int i = a->number->size - 1; i >= 0; i--){
-        printf("%c", a->number->value[i] + '0');
+        printf("%c", chr(a->number->value[i]));
     }
     printf("\n");
 }

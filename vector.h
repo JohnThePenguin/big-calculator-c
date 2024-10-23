@@ -26,6 +26,7 @@ struct Vector* createVector(){
 
 void deleteVector(struct Vector* v){
     free(v->value);
+    free(v);
     v = NULL;
 }
 

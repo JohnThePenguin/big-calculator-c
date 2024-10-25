@@ -1,7 +1,5 @@
-#ifndef OPERATIONS_H
-#define OPERATIONS_H
-
-#include "core.h"
+#include "numbers_core.h"
+#include "numbers_operations.h"
 
 NumPointer addNumbers(NumPointer a, NumPointer b){
     struct Vector* result = createVector();
@@ -92,5 +90,3 @@ int subtractNumbers(struct Vector* a, struct Vector *b, int left, int right){
 
     return 1;
 }
-
-#endif

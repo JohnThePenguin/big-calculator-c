@@ -1,7 +1,6 @@
-#ifndef DIVIDING_H
-#define DIVIDING_H
-
-#include "core.h"
+#include "numbers_core.h"
+#include "numbers_operations.h"
+#include "numbers_diving.h"
 
 int divideManualNumbers(struct Vector* a, struct Vector *b, int left, int right){
     int count = 0;
@@ -61,5 +60,3 @@ NumPointer divideNumbers(NumPointer a, NumPointer b){
     cleanZeros(a);
     return normalizeDividedNumber(result);
 }
-
-#endif

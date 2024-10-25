@@ -1,21 +1,12 @@
-#ifndef CORE_H
-#define CORE_H
+#include "vector.h"
+#include "error.h"
+
+#include "numbers_core.h"
+#include "numbers_chars.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "chars.h"
-#include "../vector/core.h"
-#include "systems.h"
-
-#define max(a, b) ((a) > (b) ? (a) : (b))
-
-struct Number;
-
-typedef struct Number* NumPointer;
-
-void setNumber(NumPointer a, int value);
-NumPointer createNumber(int value);
 
 struct Number {
     struct Vector* number;
@@ -80,5 +71,3 @@ void cleanZeros(NumPointer a){
         popVector(a->number);
     }
 }
-
-#endif

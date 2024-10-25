@@ -1,9 +1,7 @@
-#ifndef SYSTEM_H
-#define SYSTEM_H
-
-#include "core.h"
-#include "operations.h"
-#include "dividing.h"
+#include "numbers_core.h"
+#include "numbers_operations.h"
+#include "numbers_dividing.h"
+#include "numbers_system.h"
 
 void toDecimalSystem(NumPointer a){
     NumPointer power = createNumber(1);
@@ -76,5 +74,3 @@ void setSystem(NumPointer* a, int system){
         fromDecimalSystem(a, system);
     }
 }
-
-#endif

@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "error.h"
+#include "../error.h"
 
 struct Vector {
     char* value;

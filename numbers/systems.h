@@ -1,7 +1,9 @@
 #ifndef SYSTEM_H
 #define SYSTEM_H
 
-#include "numbers.h"
+#include "core.h"
+#include "operations.h"
+#include "dividing.h"
 
 void toDecimalSystem(NumPointer a){
     NumPointer power = createNumber(1);
@@ -60,6 +62,19 @@ void fromDecimalSystem(NumPointer* a, int system){
 
     (*a)->number = result;
     (*a)->system = system;
+}
+
+void setSystem(NumPointer* a, int system){
+    if(system == 10){
+        toDecimalSystem(*a);
+    }
+    else if((*a)->system == 10){
+        fromDecimalSystem(a, system);
+    }
+    else{
+        toDecimalSystem(*a);
+        fromDecimalSystem(a, system);
+    }
 }
 
 #endif

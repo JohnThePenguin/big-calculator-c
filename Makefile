@@ -1,29 +1,24 @@
-# Compiler
 CC = gcc
 
-# Compiler flags
-CFLAGS = -Iinclude -Wall
+CFLAGS = -Iinclude -g
 
-# Directories containing source files
-SRC_DIRS = src src/numbers src/vector src/error
+SRC = $(shell find src -name "*.c")
+OBJ = $(SRC:.c=.o)
 
-# Find all .c files in SRC_DIRS
-SRCS = $(shell find $(SRC_DIRS) -name "*.c")
-
-# Create corresponding .o files in the same directory
-OBJS = $(SRCS:.c=.o)
-
-# Output binary
 TARGET = main
 
-# Build target
-$(TARGET): $(OBJS)
-	$(CC) $(OBJS) -o $(TARGET)
+$(TARGET): $(OBJ)
+	$(CC) -o $@ $(OBJ)
 
-# Rule to compile each .c file to a .o file
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+src/%.o: src/%.c
+	$(CC) $(CFLAGS) -c -o $@ $<
 
-# Clean up
+echo:
+	@echo "Source files: $(SRC)"
+
 clean:
-	rm -f $(OBJS) $(TARGET)
+	find . -name \*.o -type f -delete
+	rm -f $(TARGET)
+
+run: $(TARGET)
+	./$(TARGET)

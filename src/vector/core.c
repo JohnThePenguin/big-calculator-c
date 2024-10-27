@@ -4,12 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct Vector {
-    char* value;
-    int size;
-    int allocated;
-};
-
 struct Vector* createVector(){
     struct Vector* a = (struct Vector*)malloc(sizeof(struct Vector));
     a->size = 0;

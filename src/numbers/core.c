@@ -8,11 +8,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct Number {
-    struct Vector* number;
-    int system;
-};
-
 NumPointer createNumber(int value){
     NumPointer a = (NumPointer)malloc(sizeof(struct Number));
     a->number = createVector();
@@ -44,13 +39,14 @@ void setNumberFromString(NumPointer a, const char* value, size_t size, int syste
 }
 
 NumPointer copyNumber(NumPointer a, NumPointer b){
-    NumPointer copied = (NumPointer)memcpy(a, b, sizeof(b));
+    // NumPointer copied = (NumPointer)memcpy(a, b, sizeof(b));
 
-    if(copied == NULL){
-        error("Could not copy Number object");
-    }
+    // if(copied == NULL){
+    //     error("Could not copy Number object");
+    // }
 
-    return copied;
+    error("Function not ready");
+    return a;
 }
 
 void deleteNumber(NumPointer a){

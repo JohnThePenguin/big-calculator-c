@@ -2,10 +2,14 @@
 #define NUMBERS_CORE_H
 
 #include "stdio.h"
+#include "vector.h"
 
 #define max(a, b) ((a) > (b) ? (a) : (b))
 
-struct Number;
+struct Number {
+    struct Vector* number;
+    int system;
+};
 
 typedef struct Number* NumPointer;
 

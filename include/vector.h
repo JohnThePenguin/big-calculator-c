@@ -1,4 +1,11 @@
-struct Vector;
+#ifndef VECTOR_H
+#define VECTOR_H
+
+struct Vector {
+    char* value;
+    int size;
+    int allocated;
+};
 
 struct Vector* createVector();
 
@@ -13,3 +20,5 @@ int popVector(struct Vector* v);
 void emptyVector(struct Vector* v);
 
 void printVector(struct Vector* v);
+
+#endif

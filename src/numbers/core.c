@@ -63,7 +63,9 @@ void printNumber(NumPointer a){
 }
 
 void cleanZeros(NumPointer a){
-    while(a->number->value[a->number->size - 1] == 0){
+    while(a->number->size > 1 &&
+        a->number->value[a->number->size - 1] == 0){
+        
         popVector(a->number);
     }
 }

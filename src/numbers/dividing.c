@@ -32,14 +32,14 @@ NumPointer divideNumbers(NumPointer a, NumPointer b){
     size_t a_size = a->number->size;
     size_t b_size = b->number->size;
 
-    int left = a_size - 1;
+    int left = a_size;
     int right = a_size - 1;
 
     NumPointer result = createNumber(-1);
 
     while(left > 0){
         left--;
-        while(right - left + 1 < b_size){
+        while(left > 0 && right - left + 1 < b_size){
             left--;
             pushVector(result->number, 0);
         }

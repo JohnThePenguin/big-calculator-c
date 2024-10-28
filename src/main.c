@@ -2,25 +2,42 @@
 #include "numbers.h"
 
 int main(){
-    NumPointer one = createNumber(3089243);
-    NumPointer two = createNumber(314);
+    // NumPointer one = createNumber(10);
+    // NumPointer two = createNumber(5);
 
-    // fromDecimalSystem(&two, 13);
-    // printNumber(two);
+    // NumPointer one = createNumber(90844);
+    // NumPointer two = createNumber(5);
+
+
+    // fromDecimalSystem(&one, 5);
+    // printNumber(one);
 
     // NumPointer converted = createNumber(0);
-    // setNumberFromString(converted, "842171", 6, 13);
+    // setNumberFromString(converted, "1B2", 3, 13);
     // toDecimalSystem(converted);
     // printNumber(converted); 
 
+    int number = 0;
+    int system = 10;
+
+    scanf("%d", &number);
+    scanf("%d", &system);
+
+    // printf("converting %d from 10 to %d system: \n", number, system);
+
+    NumPointer one = createNumber(number);
+    fromDecimalSystem(&one, system);
+
+    printNumber(one);
+
     // printNumber(one);
 
-    NumPointer divide = divideNumbers(one, two);
+    // NumPointer divide = divideNumbers(one, two);
 
-    printf("Dividing:\n");
-    printNumber(divide);
-    printf("Rest:\n");
-    printNumber(one);
+    // printf("Dividing:\n");
+    // printNumber(divide);
+    // printf("Rest:\n");
+    // printNumber(one);
 
 
     // NumPointer addition = addNumbers(one, two);

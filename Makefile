@@ -5,7 +5,7 @@ CFLAGS = -Iinclude -g
 SRC = $(shell find src -name "*.c")
 OBJ = $(SRC:.c=.o)
 
-TARGET = main
+TARGET = build/main
 
 $(TARGET): $(OBJ)
 	$(CC) -o $@ $(OBJ)

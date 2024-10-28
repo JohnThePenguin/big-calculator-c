@@ -44,7 +44,7 @@ void fromDecimalSystem(NumPointer* a, int system){
         NumPointer b = divideNumbers(*a, devisor);
 
         // printNumber(b);
-        // printNumber(a);
+        // printNumber(*a);
         // printf("-----------\n");
 
         if((*a)->number->size == 1){

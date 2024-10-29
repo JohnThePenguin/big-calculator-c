@@ -2,6 +2,49 @@
 #include "numbers.h"
 
 int main(){
+    NumPointer a = createNumber(4070);
+    NumPointer b = createNumber(15334);
+
+    rewriteNumber(&a, &b);
+
+    printNumber(a);
+    printNumber(b);
+
+    copyNumber(&b, a);
+
+    printNumber(a);
+    printNumber(b);
+
+    deleteNumber(&a);
+    deleteNumber(&b);
+    
+    /*
+    VecPointer a = createVector();
+    VecPointer b = createVector();
+
+    pushVector(a, '5');
+    pushVector(a, '2');
+    pushVector(a, '8');
+    pushVector(a, '1');
+
+
+    pushVector(b, 'g');
+    pushVector(b, 'u');
+    pushVector(b, 'f');
+
+    
+    rewriteVector(&a, &b);
+    printVector(a);
+    printVector(b);
+
+    copyVector(&b, a);
+
+    printVector(a);
+    printVector(b);
+
+    deleteVector(&a);
+    deleteVector(&b);
+
     /* 
     NumPointer one = createNumber(10);
     NumPointer two = createNumber(5);
@@ -19,6 +62,7 @@ int main(){
     printNumber(converted); 
     */
 
+    /*
     int number = 0;
     int system = 10;
     NumPointer one = NULL;
@@ -30,6 +74,7 @@ int main(){
     fromDecimalSystem(&one, system);
 
     printNumber(one);
+    */    
 
     /*
     printNumber(one);

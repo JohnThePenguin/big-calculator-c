@@ -2,7 +2,7 @@
 #include "numbers_operations.h"
 #include "numbers_dividing.h"
 
-int divideManualNumbers(struct Vector* a, struct Vector *b, int left, int right){
+int divideManualNumbers(VecPointer a, struct Vector *b, int left, int right){
     int count = 0;
 
     while(subtractNumbers(a, b, left, right) == 1){

@@ -3,9 +3,10 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-struct Vector* createVector(){
-    struct Vector* a = (struct Vector*)malloc(sizeof(struct Vector));
+VecPointer createVector(){
+    VecPointer a = (VecPointer)malloc(sizeof(struct Vector));
     a->size = 0;
     a->allocated = 0;
     a->value = (char*)malloc(2 * sizeof(char));
@@ -20,13 +21,36 @@ struct Vector* createVector(){
     return a;
 }
 
-void deleteVector(struct Vector* v){
-    free(v->value);
-    free(v);
-    v = NULL;
+void deleteVector(VecPointer* v){
+    if(*v != NULL){
+        free((*v)->value);
+        free(*v);
+        *v = NULL;
+    }
 }
 
-void setVectorSize(struct Vector* v, int size){
+void copyVector(VecPointer* destination, VecPointer b){
+    deleteVector(destination);
+
+    (*destination) = (VecPointer)malloc(sizeof(struct Vector));
+    (*destination)->size = b->size;
+    (*destination)->allocated = b->allocated;
+    (*destination)->value = (char*)malloc(b->allocated * sizeof(char));
+
+    memcpy(
+        (*destination)->value,
+        b->value,
+        sizeof(char) * b->allocated
+    );
+}
+
+void rewriteVector(VecPointer* destination, VecPointer* a){
+    deleteVector(destination);
+    *destination = *a;
+    *a = NULL;
+}
+
+void setVectorSize(VecPointer v, int size){
     if(v->allocated == size){
         return;
     }
@@ -45,7 +69,7 @@ void setVectorSize(struct Vector* v, int size){
     }
 }
 
-int pushVector(struct Vector* v, char element){
+int pushVector(VecPointer v, char element){
     if(v->allocated == v->size){
         setVectorSize(v, v->size * 2);
     }
@@ -54,7 +78,7 @@ int pushVector(struct Vector* v, char element){
     return ++v->size;   
 }
 
-int popVector(struct Vector* v){
+int popVector(VecPointer v){
     if(v->size == 0){
         return -1;
     }
@@ -63,15 +87,20 @@ int popVector(struct Vector* v){
     }
 }
 
-void emptyVector(struct Vector* v){
+void emptyVector(VecPointer v){
     v->size = 0;
 }
 
-void printVector(struct Vector* v){
+void printVector(VecPointer v){
     int i = 0;
 
-    for(i = v->size - 1; i >= 0; i--){
-        printf("%c ", v->value[i]);
+    if(v == NULL){
+        printf("<Given NULL as pointer to Vector>");
+    }
+    else{
+        for(i = v->size - 1; i >= 0; i--){
+            printf("%c ", v->value[i]);
+        }
     }
     printf("\n");
 }

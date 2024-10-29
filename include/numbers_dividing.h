@@ -2,7 +2,7 @@
 #define NUMBERS_DIVIDING_H
 
 int divideManualNumbers(
-    struct Vector* a, 
+    VecPointer a, 
     struct Vector *b, 
     int left, 
     int right

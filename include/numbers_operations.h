@@ -6,7 +6,7 @@ NumPointer addNumbers(NumPointer a, NumPointer b);
 NumPointer multiplyNumbers(NumPointer a, NumPointer b);
 
 int subtractNumbers(
-    struct Vector* a, 
+    VecPointer a, 
     struct Vector *b, 
     int left, 
     int right

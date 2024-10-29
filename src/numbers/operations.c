@@ -2,7 +2,7 @@
 #include "numbers_operations.h"
 
 NumPointer addNumbers(NumPointer a, NumPointer b){
-    struct Vector* result = createVector();
+    VecPointer result = createVector();
     NumPointer final = createNumber(-1);
 
     int i = 0;
@@ -27,7 +27,7 @@ NumPointer addNumbers(NumPointer a, NumPointer b){
 }
 
 NumPointer multiplyNumbers(NumPointer a, NumPointer b){
-    struct Vector* result = createVector();
+    VecPointer result = createVector();
     NumPointer final = createNumber(-1);
 
     int i = 0;
@@ -58,7 +58,7 @@ NumPointer multiplyNumbers(NumPointer a, NumPointer b){
     return final;
 }
 
-int subtractNumbers(struct Vector* a, struct Vector *b, int left, int right){
+int subtractNumbers(VecPointer a, struct Vector *b, int left, int right){
     int i = 0;
     int j = 0;
 

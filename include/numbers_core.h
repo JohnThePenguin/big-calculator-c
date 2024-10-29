@@ -7,7 +7,7 @@
 #define max(a, b) ((a) > (b) ? (a) : (b))
 
 struct Number {
-    struct Vector* number;
+    VecPointer number;
     int system;
 };
 
@@ -25,9 +25,11 @@ void setNumberFromString(
     int system
 );
 
-NumPointer copyNumber(NumPointer a, NumPointer b);
+void copyNumber(NumPointer* a, NumPointer b);
 
-void deleteNumber(NumPointer a);
+void deleteNumber(NumPointer* a);
+
+void rewriteNumber(NumPointer* destination, NumPointer* a);
 
 void printNumber(NumPointer a);
 

@@ -7,18 +7,24 @@ struct Vector {
     int allocated;
 };
 
-struct Vector* createVector();
+typedef struct Vector* VecPointer;
 
-void deleteVector(struct Vector* v);
+VecPointer createVector();
 
-void setVectorSize(struct Vector* v, int size);
+void deleteVector(VecPointer* v);
 
-int pushVector(struct Vector* v, char element);
+void copyVector(VecPointer* destination, VecPointer b);
 
-int popVector(struct Vector* v);
+void rewriteVector(VecPointer* destination, VecPointer* a);
 
-void emptyVector(struct Vector* v);
+void setVectorSize(VecPointer v, int size);
 
-void printVector(struct Vector* v);
+int pushVector(VecPointer v, char element);
+
+int popVector(VecPointer v);
+
+void emptyVector(VecPointer v);
+
+void printVector(VecPointer v);
 
 #endif

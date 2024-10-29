@@ -23,15 +23,15 @@ void toDecimalSystem(NumPointer a){
         
             result = addNumbers(result, multiplication);
 
-            deleteNumber(lastDigit);
-            deleteNumber(multiplication);
+            deleteNumber(&lastDigit);
+            deleteNumber(&multiplication);
         }
 
         power = multiplyNumbers(power, system);
     }
 
-    deleteNumber(power);
-    deleteNumber(system);
+    deleteNumber(&power);
+    deleteNumber(&system);
     /* deleteNumber(a); */
 
     a->number = result->number;
@@ -40,7 +40,7 @@ void toDecimalSystem(NumPointer a){
 
 void fromDecimalSystem(NumPointer* a, int system){
     NumPointer devisor = createNumber(system);
-    struct Vector* result = createVector();
+    VecPointer result = createVector();
 
     while((*a)->number->size > 1 || (*a)->number->value[0] > 0){
         NumPointer b = divideNumbers(*a, devisor);

@@ -1,0 +1,12 @@
+Whole Project:
+
+
+Vector:
+
+
+Numbers:
+    
+    Operations:
+        As argument should take pointers to Numbers
+        Should return pointer to new Number object
+        Should not leave any temporary Numbers not deleted

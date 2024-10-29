@@ -40,30 +40,39 @@ void setNumberFromString(NumPointer a, const char* value, size_t size, int syste
     a->system = system;
 }
 
-NumPointer copyNumber(NumPointer a, NumPointer b){
-    /*
-    NumPointer copied = (NumPointer)memcpy(a, b, sizeof(b));
+void copyNumber(NumPointer* destination, NumPointer b){
+    deleteNumber(destination);
 
-    if(copied == NULL){
-        error("Could not copy Number object");
-    }
-    */
+    (*destination) = createNumber(-1);
+    (*destination)->system = b->system;
 
-    error("Function not ready");
-    return a;
+    copyVector(&((*destination)->number), b->number);
 }
 
-void deleteNumber(NumPointer a){
-    deleteVector(a->number);
-    free(a);
-    a = NULL;
+void deleteNumber(NumPointer* a){
+    if(*a != NULL){
+        deleteVector(&((*a)->number));
+        free(*a);
+        *a = NULL;
+    }
+}
+
+void rewriteNumber(NumPointer* destination, NumPointer* a){
+    deleteNumber(destination);
+    *destination = *a;
+    *a = NULL;
 }
 
 void printNumber(NumPointer a){
     int i = 0;
 
-    for(i = a->number->size - 1; i >= 0; i--){
-        printf("%c", chr(a->number->value[i]));
+    if(a == NULL){
+        printf("<Given NULL as pointer to Number>");
+    }
+    else{
+        for(i = a->number->size - 1; i >= 0; i--){
+            printf("%c", chr(a->number->value[i]));
+        }
     }
     printf("\n");
 }

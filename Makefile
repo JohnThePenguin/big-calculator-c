@@ -1,6 +1,7 @@
 CC = gcc
 
-CFLAGS = -Iinclude -g -ansi -std=c89 -pedantic
+CFLAGS = -Iinclude -g -ansi -std=c89 -pedantic 
+# -fsanitize=address
 
 SRC = $(shell find src -name "*.c")
 OBJ = $(SRC:.c=.o)

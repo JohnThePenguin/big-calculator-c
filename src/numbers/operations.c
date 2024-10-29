@@ -3,9 +3,12 @@
 
 NumPointer addNumbers(NumPointer a, NumPointer b){
     struct Vector* result = createVector();
+    NumPointer final = createNumber(-1);
 
+    int i = 0;
     int temp = 0;
-    for(int i = 0; i < max(a->number->size, b->number->size); i++){
+
+    for(i = 0; i < max(a->number->size, b->number->size); i++){
         if(i < a->number->size)
             temp += a->number->value[i];
 
@@ -19,20 +22,22 @@ NumPointer addNumbers(NumPointer a, NumPointer b){
     if(temp > 0)
         pushVector(result, temp);
 
-    NumPointer final = createNumber(-1);
     final->number = result;
     return final;
 }
 
 NumPointer multiplyNumbers(NumPointer a, NumPointer b){
     struct Vector* result = createVector();
+    NumPointer final = createNumber(-1);
 
-    long long rest = 0;
+    int i = 0;
+    int j = 0;
+    size_t rest = 0; /*originally long long (ansi)*/
     size_t max_size = max(a->number->size, b->number->size);
 
-    for(int i = 0; i < 2 * max_size; i++){
+    for(i = 0; i < 2 * max_size; i++){
 
-        for(int j = i; j >= 0; j--){
+        for(j = i; j >= 0; j--){
 
             if((j < a->number->size) && (i - j < b->number->size)){
                 rest += (
@@ -47,7 +52,6 @@ NumPointer multiplyNumbers(NumPointer a, NumPointer b){
         rest /= 10;
     }
 
-    NumPointer final = createNumber(-1);
     final->number = result;
     cleanZeros(final);
 
@@ -55,12 +59,15 @@ NumPointer multiplyNumbers(NumPointer a, NumPointer b){
 }
 
 int subtractNumbers(struct Vector* a, struct Vector *b, int left, int right){
+    int i = 0;
+    int j = 0;
+
     if(right - left + 1 < b->size){
         return 0;
     }
 
     if(right - left + 1 == b->size){
-        for(int i = b->size - 1; i >= 0; i--){
+        for(i = b->size - 1; i >= 0; i--){
             if(b->value[i] > a->value[i + left]){
                 return 0;
             }
@@ -70,7 +77,7 @@ int subtractNumbers(struct Vector* a, struct Vector *b, int left, int right){
         }
     }
 
-    for(int i = 0; i <= right - left; i++){
+    for(i = 0; i <= right - left; i++){
         if(b->size == i){
             return 1;
         }

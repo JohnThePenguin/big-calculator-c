@@ -37,7 +37,7 @@ void setVectorSize(struct Vector* v, int size){
         v->value = (char*)realloc(v->value, size * sizeof(char));
         
         if(v->value == NULL){
-            //could not allocate
+            error("Could not allocate!");
         }   
         else{
             v->allocated = size;
@@ -68,7 +68,9 @@ void emptyVector(struct Vector* v){
 }
 
 void printVector(struct Vector* v){
-    for(int i = v->size - 1; i >= 0; i--){
+    int i = 0;
+
+    for(i = v->size - 1; i >= 0; i--){
         printf("%c ", v->value[i]);
     }
     printf("\n");

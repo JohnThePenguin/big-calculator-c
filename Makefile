@@ -1,6 +1,6 @@
 CC = gcc
 
-CFLAGS = -Iinclude -g
+CFLAGS = -Iinclude -g -ansi -std=c89 -pedantic
 
 SRC = $(shell find src -name "*.c")
 OBJ = $(SRC:.c=.o)
@@ -16,7 +16,7 @@ src/%.o: src/%.c
 echo:
 	@echo "Source files: $(SRC)"
 
-clean:
+clear:
 	find . -name \*.o -type f -delete
 	rm -f $(TARGET)
 

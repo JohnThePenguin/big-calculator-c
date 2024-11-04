@@ -25,6 +25,8 @@ void setNumberFromString(
     int system
 );
 
+void setNumberProperyValue(NumPointer a, VecPointer v);
+
 void copyNumber(NumPointer* a, NumPointer b);
 
 void deleteNumber(NumPointer* a);

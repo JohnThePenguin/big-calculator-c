@@ -22,7 +22,8 @@ NumPointer addNumbers(NumPointer a, NumPointer b){
     if(temp > 0)
         pushVector(result, temp);
 
-    final->number = result;
+    
+    setNumberProperyValue(final, result);
     return final;
 }
 
@@ -52,7 +53,7 @@ NumPointer multiplyNumbers(NumPointer a, NumPointer b){
         rest /= 10;
     }
 
-    final->number = result;
+    setNumberProperyValue(final, result);
     cleanZeros(final);
 
     return final;

@@ -2,9 +2,11 @@
 #include "numbers.h"
 
 int main(){
+    /*
     NumPointer a = createNumber(4070);
     NumPointer b = createNumber(15334);
 
+    /*
     rewriteNumber(&a, &b);
 
     printNumber(a);
@@ -17,6 +19,8 @@ int main(){
 
     deleteNumber(&a);
     deleteNumber(&b);
+
+    */
     
     /*
     VecPointer a = createVector();
@@ -44,10 +48,10 @@ int main(){
 
     deleteVector(&a);
     deleteVector(&b);
-
     /* 
     NumPointer one = createNumber(10);
     NumPointer two = createNumber(5);
+
 
     NumPointer one = createNumber(90844);
     NumPointer two = createNumber(5);
@@ -60,9 +64,7 @@ int main(){
     setNumberFromString(converted, "1B2", 3, 13);
     toDecimalSystem(converted);
     printNumber(converted); 
-    */
 
-    /*
     int number = 0;
     int system = 10;
     NumPointer one = NULL;
@@ -86,18 +88,20 @@ int main(){
     printf("Rest:\n");
     printNumber(one);
 
+    */
 
-    NumPointer addition = addNumbers(one, two);
+    NumPointer a = createNumber(4070);
+    NumPointer b = createNumber(15334);
+    NumPointer addition = multiplyNumbers(a, b);
+
     printf("Addition: \n");
     printNumber(addition);
 
-    NumPointer three = createNumber(0);
-    setNumberFromString(three, "111100111101110100101010", 24, 2);
+    deleteNumber(&a);
+    deleteNumber(&b);
+    deleteNumber(&addition);
 
-    printNumber(three);
-    toDecimalSystem(three);
-    printNumber(three);
-
+    /*
 
     divide = subtractNumbers(one->number, two->number, 0, 3);
     printf("%d\n", divide);

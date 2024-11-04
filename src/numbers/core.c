@@ -40,6 +40,11 @@ void setNumberFromString(NumPointer a, const char* value, size_t size, int syste
     a->system = system;
 }
 
+void setNumberProperyValue(NumPointer a, VecPointer v){
+    deleteVector(&(a->number));
+    a->number = v;
+}
+
 void copyNumber(NumPointer* destination, NumPointer b){
     deleteNumber(destination);
 

@@ -9,6 +9,8 @@ void toDecimalSystem(NumPointer a){
     NumPointer power = createNumber(1);
     NumPointer system = createNumber(a->system);
     NumPointer result = createNumber(0);
+    NumPointer lastDigit = NULL;
+    NumPointer multiplication = NULL;
 
     /* printNumber(a);
     printf("%d\n", a->number->size);
@@ -18,32 +20,33 @@ void toDecimalSystem(NumPointer a){
     for(i = 0; i < a->number->size; i++){
 
         if(a->number->value[i] > 0){
-            NumPointer lastDigit = createNumber(a->number->value[i]);
-            NumPointer multiplication = multiplyNumbers(power, lastDigit);
+            lastDigit = createNumber(a->number->value[i]);
+            multiplication = multiplyNumbers(power, lastDigit);
         
-            result = addNumbers(result, multiplication);
+            rewriteNumber(&result, addNumbers(result, multiplication));
 
             deleteNumber(&lastDigit);
             deleteNumber(&multiplication);
         }
 
-        power = multiplyNumbers(power, system);
+        rewriteNumber(&power, multiplyNumbers(power, system));
     }
+
+    copyVector(&(a->number), result->number);
+    a->system = 10;
 
     deleteNumber(&power);
     deleteNumber(&system);
-    /* deleteNumber(a); */
-
-    a->number = result->number;
-    a->system = 10;
+    deleteNumber(&result);
 }
 
 void fromDecimalSystem(NumPointer* a, int system){
-    NumPointer devisor = createNumber(system);
     VecPointer result = createVector();
+    NumPointer devisor = createNumber(system);
+    NumPointer division = NULL;
 
     while((*a)->number->size > 1 || (*a)->number->value[0] > 0){
-        NumPointer b = divideNumbers(*a, devisor);
+        division = divideNumbers(*a, devisor);
 
         /*
         // printNumber(b);
@@ -58,12 +61,14 @@ void fromDecimalSystem(NumPointer* a, int system){
             pushVector(result, (*a)->number->value[0] + 10 * (*a)->number->value[1]);
         }
 
-        /* deleteNumber(a); */
-        *a = b;
+        rewriteNumber(a, division);
     }
 
-    (*a)->number = result;
+    copyVector(&((*a)->number), result);
     (*a)->system = system;
+
+    deleteVector(&result);
+    deleteNumber(&devisor);
 }
 
 void setSystem(NumPointer* a, int system){

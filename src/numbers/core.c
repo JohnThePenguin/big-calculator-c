@@ -40,7 +40,7 @@ void setNumberFromString(NumPointer a, const char* value, size_t size, int syste
     a->system = system;
 }
 
-void setNumberProperyValue(NumPointer a, VecPointer v){
+void setNumberPropertyValue(NumPointer a, VecPointer v){
     deleteVector(&(a->number));
     a->number = v;
 }
@@ -62,10 +62,10 @@ void deleteNumber(NumPointer* a){
     }
 }
 
-void rewriteNumber(NumPointer* destination, NumPointer* a){
+void rewriteNumber(NumPointer* destination, NumPointer a){
     deleteNumber(destination);
-    *destination = *a;
-    *a = NULL;
+    *destination = a;
+    /* *a = NULL; */ /*/ changed a from ** to * /*/
 }
 
 void printNumber(NumPointer a){

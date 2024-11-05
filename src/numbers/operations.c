@@ -23,7 +23,7 @@ NumPointer addNumbers(NumPointer a, NumPointer b){
         pushVector(result, temp);
 
     
-    setNumberProperyValue(final, result);
+    setNumberPropertyValue(final, result);
     return final;
 }
 
@@ -36,7 +36,7 @@ NumPointer multiplyNumbers(NumPointer a, NumPointer b){
     size_t rest = 0; /*originally long long (ansi)*/
     size_t max_size = max(a->number->size, b->number->size);
 
-    for(i = 0; i < 2 * max_size; i++){
+    for(i = 0; (size_t)i < 2 * max_size; i++){
 
         for(j = i; j >= 0; j--){
 
@@ -53,7 +53,7 @@ NumPointer multiplyNumbers(NumPointer a, NumPointer b){
         rest /= 10;
     }
 
-    setNumberProperyValue(final, result);
+    setNumberPropertyValue(final, result);
     cleanZeros(final);
 
     return final;
@@ -87,7 +87,7 @@ int subtractNumbers(VecPointer a, struct Vector *b, int left, int right){
             a->value[i + left] -= b->value[i];
         }
         else{
-            int j = i + 1;
+            j = i + 1;
             while(a->value[j + left] == 0)
                 a->value[j++ + left] = 9;
 

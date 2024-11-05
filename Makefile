@@ -1,6 +1,6 @@
 CC = gcc
 
-CFLAGS = -Iinclude -g -ansi -std=c89 -pedantic 
+CFLAGS = -Iinclude -g -ansi -std=c89 -pedantic -Wall -Wextra
 # -fsanitize=address
 
 SRC = $(shell find src -name "*.c")

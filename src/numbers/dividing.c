@@ -38,6 +38,7 @@ NumPointer divideNumbers(NumPointer a, NumPointer b){
     NumPointer result = createNumber(-1);
 
     if(a->number->size < b->number->size){
+        deleteNumber(&result);
         return createNumber(0);
     }
 

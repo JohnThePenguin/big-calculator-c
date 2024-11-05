@@ -65,6 +65,7 @@ int main(){
     toDecimalSystem(converted);
     printNumber(converted); 
 
+    */
     int number = 0;
     int system = 10;
     NumPointer one = NULL;
@@ -76,7 +77,6 @@ int main(){
     fromDecimalSystem(&one, system);
 
     printNumber(one);
-    */    
 
     /*
     printNumber(one);
@@ -90,6 +90,7 @@ int main(){
 
     */
 
+    /*
     NumPointer a = createNumber(4070);
     NumPointer b = createNumber(15334);
     NumPointer addition = multiplyNumbers(a, b);
@@ -100,6 +101,7 @@ int main(){
     deleteNumber(&a);
     deleteNumber(&b);
     deleteNumber(&addition);
+    */
 
     /*
 

@@ -1,7 +1,21 @@
 #include <stdio.h>
+#include <time.h> 
+
 #include "numbers.h"
 
 int main(){
+    clock_t c = clock();
+    double secondsTaken;
+
+    NumPointer a = createNumber(2);
+    NumPointer n = createNumber(500000);
+
+    powerNumbers(&a, n);
+    printNumber(a);
+
+    /* Took 23 seconds to finish - length of about 150K digits */
+    /* Numbers matching with WolframAlpha */
+
     /*
     NumPointer a = createNumber(4070);
     NumPointer b = createNumber(15334);
@@ -66,6 +80,7 @@ int main(){
     printNumber(converted); 
 
     */
+    /*
     int number = 0;
     int system = 10;
     NumPointer one = NULL;
@@ -119,6 +134,10 @@ int main(){
     printf("%d\n", divide);
     printNumber(one);
     */
+
+    c = clock() - c; 
+    secondsTaken = ((double)c)/CLOCKS_PER_SEC;
+    printf("\nExecuted in total of %f seconds \n", secondsTaken); 
 
     return 0;
 }

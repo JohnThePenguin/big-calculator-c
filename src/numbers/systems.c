@@ -83,3 +83,25 @@ void setSystem(NumPointer* a, int system){
         fromDecimalSystem(a, system);
     }
 }
+
+void powerNumbers(NumPointer* a, NumPointer n){
+    int i = 0;
+    NumPointer result = createNumber(1);
+
+    fromDecimalSystem(&n, 2);
+
+    for(i = n->number->size; i >= 0; i--){
+        /*
+        printf("\t%c\n", (n->number->value[i] + '0'));
+        printNumber(result);
+        */
+
+        rewriteNumber(&result, multiplyNumbers(result, result));
+
+        if(n->number->value[i] == 1){
+            rewriteNumber(&result, multiplyNumbers(result, *a));
+        }
+    }
+
+    rewriteNumber(a, result);
+}

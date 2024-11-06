@@ -7,4 +7,6 @@ void fromDecimalSystem(NumPointer* a, int system);
 
 void setSystem(NumPointer* a, int system);
 
+void powerNumbers(NumPointer* a, NumPointer n);
+
 #endif

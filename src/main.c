@@ -2,11 +2,15 @@
 #include <time.h> 
 
 #include "numbers.h"
+#include "input.h"
 
 int main(){
     clock_t c = clock();
     double secondsTaken;
 
+    openFile("assertions.txt");
+
+    /*
     NumPointer a = createNumber(2);
     NumPointer n = createNumber(500000);
 
@@ -137,7 +141,7 @@ int main(){
 
     c = clock() - c; 
     secondsTaken = ((double)c)/CLOCKS_PER_SEC;
-    printf("\nExecuted in total of %f seconds \n", secondsTaken); 
+    printf("\n\nExecuted in total of %f seconds \n", secondsTaken); 
 
     return 0;
 }

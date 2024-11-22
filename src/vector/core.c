@@ -22,7 +22,7 @@ VecPointer createVector(){
 }
 
 void deleteVector(VecPointer* v){
-    if(*v != NULL){
+    if(*v != NULL && v != NULL){
         free((*v)->value);
         free(*v);
         *v = NULL;

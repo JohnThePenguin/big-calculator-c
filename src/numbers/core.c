@@ -55,7 +55,7 @@ void copyNumber(NumPointer* destination, NumPointer b){
 }
 
 void deleteNumber(NumPointer* a){
-    if(*a != NULL){
+    if(*a != NULL && a != NULL){
         deleteVector(&((*a)->number));
         free(*a);
         *a = NULL;
@@ -66,6 +66,19 @@ void rewriteNumber(NumPointer* destination, NumPointer a){
     deleteNumber(destination);
     *destination = a;
     /* *a = NULL; */ /*/ changed a from ** to * /*/
+}
+
+int readIntFromNumber(NumPointer a){
+    int size = a->number->size;
+    int result = 0;
+    int i;
+
+    for(i = size - 1; i >= 0; i--){
+        result*= 10;
+        result += a->number->value[i];
+    }
+
+    return result;
 }
 
 void printNumber(NumPointer a){

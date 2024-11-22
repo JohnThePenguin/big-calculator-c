@@ -33,6 +33,8 @@ void deleteNumber(NumPointer* a);
 
 void rewriteNumber(NumPointer* destination, NumPointer a);
 
+int readIntFromNumber(NumPointer a);
+
 void printNumber(NumPointer a);
 
 void cleanZeros(NumPointer a);

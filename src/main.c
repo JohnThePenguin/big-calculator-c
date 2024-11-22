@@ -4,12 +4,89 @@
 #include "numbers.h"
 #include "input.h"
 
+void handleOperations(struct InputResponse input){
+    int wrongOperation = 0;
+    NumPointer base = NULL, arg = NULL;
+
+    base = readNextArgument(input.systemIn);
+    if(base->number->size == 0) return;
+
+    printf("New calc operation: ");
+    printNumber(base);
+    printf("\n");
+
+    arg = readNextArgument(input.systemIn);
+
+    /*printf("%c\n", chr(arg->number->value[0]));*/
+    while(arg->number->size > 0 && wrongOperation == 0){
+        printNumber(arg);
+        switch (input.operation) {
+            case '+':
+                rewriteNumber(&base, addNumbers(base, arg));
+                break;
+            case '*':
+                rewriteNumber(&base, multiplyNumbers(base, arg));
+                break;
+            case '/':
+                rewriteNumber(&base, divideNumbers(base, arg));
+                break;
+            case '%':
+                divideNumbers(base, arg);
+                break;
+            case '^':
+                powerNumbers(&base, arg);
+                break;
+            default:
+                char message[] = "Wrong operation:  ";
+                message[17] = input.operation;
+                handleInputError(message, 1);
+                return;
+        }
+
+        /* printNumber(base); */
+        rewriteNumber(&arg, readNextArgument(input.systemIn));
+    }
+}
+
+void handleSystemChanges(struct InputResponse input){
+    NumPointer arg = NULL;
+    rewriteNumber(&arg, readNextArgument(input.systemIn));
+    
+    while(arg->number->size > 0){
+        toDecimalSystem(arg);
+        fromDecimalSystem(&arg, input.systemOut);
+
+        printNumber(arg);
+        
+        rewriteNumber(&arg, readNextArgument(input.systemIn));
+    }
+}
+
 int main(){
     clock_t c = clock();
     double secondsTaken;
 
-    openFile("assertions.txt");
+    struct InputResponse input;
 
+    openFile("sample.txt");
+
+    do{
+        input = handleSegment();
+
+        printf("--------------------------\n");
+        printf("%d\n", input.type);
+        printf("%c\n", input.operation);
+        printf("%d\n", input.systemIn);
+        printf("%d\n\n", input.systemOut);
+        
+        if(input.type == 0){
+            handleOperations(input);
+        }
+        else{
+            handleSystemChanges(input);
+        }
+    } while(endOfFile != ERROR);
+    
     /*
     NumPointer a = createNumber(2);
     NumPointer n = createNumber(500000);

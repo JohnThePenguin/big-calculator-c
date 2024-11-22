@@ -1,8 +1,9 @@
 #include "numbers_chars.h"
 
 int num(char c){
-    if(c <= '9') return c - '0';
-    else return c - 'A' + 10;
+    if('0' <= c && c <= '9') return c - '0';
+    else if('A' <= c && c <= 'F') return c - 'A' + 10;
+    else return 100;
 }
 
 char chr(int i){

@@ -105,3 +105,16 @@ void powerNumbers(NumPointer* a, NumPointer n){
 
     rewriteNumber(a, result);
 }
+
+int systemOfTwo(NumPointer a, NumPointer *b){
+    if(a->system != (*b)->system){
+        printf("Comparing: \n");
+        printNumber(a);
+        printNumber(*b);
+        printf("%d %d\n", a->system, (*b)->system);
+
+        setSystem(b, a->system);
+    }
+
+    return a->system;
+}

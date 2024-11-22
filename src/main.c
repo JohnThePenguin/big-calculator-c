@@ -18,8 +18,6 @@ void handleOperations(struct InputResponse input){
     /*printf("%c\n", chr(arg->number->value[0]));*/
     while(arg->number->size > 0 && wrongOperation == 0){
         /*printNumber(arg);*/
-        toDecimalSystem(base);
-        toDecimalSystem(arg);
 
         switch (input.operation) {
             case '+':
@@ -69,7 +67,7 @@ int main(){
 
     struct InputResponse input;
 
-    openFile("sample.txt");
+    openFile("sample2.txt");
 
     do{
         input = handleSegment();

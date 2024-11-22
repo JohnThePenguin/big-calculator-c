@@ -4,6 +4,7 @@
 int divideManualNumbers(
     VecPointer a, 
     struct Vector *b, 
+    int system,
     int left, 
     int right
 );

@@ -73,8 +73,9 @@ int readIntFromNumber(NumPointer a){
     int result = 0;
     int i;
 
+
     for(i = size - 1; i >= 0; i--){
-        result*= 10;
+        result*= a->system;
         result += a->number->value[i];
     }
 

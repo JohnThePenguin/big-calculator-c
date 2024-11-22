@@ -7,6 +7,7 @@ NumPointer addNumbers(NumPointer a, NumPointer b){
 
     int i = 0;
     int temp = 0;
+    int system = systemOfTwo(a, &b);
 
     for(i = 0; i < max(a->number->size, b->number->size); i++){
         if(i < a->number->size)
@@ -15,8 +16,8 @@ NumPointer addNumbers(NumPointer a, NumPointer b){
         if(i < b->number->size)
             temp += b->number->value[i];
         
-        pushVector(result, temp % 10);
-        temp /= 10;
+        pushVector(result, temp % system);
+        temp /= system;
     }
 
     if(temp > 0)
@@ -35,6 +36,8 @@ NumPointer multiplyNumbers(NumPointer a, NumPointer b){
     int j = 0;
     size_t rest = 0; /*originally long long (ansi)*/
     size_t max_size = max(a->number->size, b->number->size);
+    
+    int system = systemOfTwo(a, &b);
 
     for(i = 0; (size_t)i < 2 * max_size; i++){
 
@@ -48,9 +51,9 @@ NumPointer multiplyNumbers(NumPointer a, NumPointer b){
             }
         }
         
-        pushVector(result, rest % 10);
+        pushVector(result, rest % system);
 
-        rest /= 10;
+        rest /= system;
     }
 
     setNumberPropertyValue(final, result);
@@ -59,7 +62,7 @@ NumPointer multiplyNumbers(NumPointer a, NumPointer b){
     return final;
 }
 
-int subtractNumbers(VecPointer a, struct Vector *b, int left, int right){
+int subtractNumbers(VecPointer a, struct Vector *b, int system, int left, int right){
     int i = 0;
     int j = 0;
 
@@ -89,10 +92,10 @@ int subtractNumbers(VecPointer a, struct Vector *b, int left, int right){
         else{
             j = i + 1;
             while(a->value[j + left] == 0)
-                a->value[j++ + left] = 9;
+                a->value[j++ + left] = system - 1;
 
             a->value[j + left]--;
-            a->value[i + left] = 10 + a->value[i + left] - b->value[i];
+            a->value[i + left] = system + a->value[i + left] - b->value[i];
         }
     }
 

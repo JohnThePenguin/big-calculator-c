@@ -2,10 +2,12 @@
 #include "numbers_operations.h"
 #include "numbers_dividing.h"
 
-int divideManualNumbers(VecPointer a, struct Vector *b, int left, int right){
+#include "error.h"
+
+int divideManualNumbers(VecPointer a, struct Vector *b, int system, int left, int right){
     int count = 0;
 
-    while(subtractNumbers(a, b, left, right) == 1){
+    while(subtractNumbers(a, b, system, left, right) == 1){
         while(a->value[right] == 0) right--;
         count++;
     }
@@ -37,9 +39,17 @@ NumPointer divideNumbers(NumPointer a, NumPointer b){
 
     NumPointer result = createNumber(-1);
 
+    if(a->system != b->system){
+        error("Different numeric systems in division!");        
+    }
+
     if(a->number->size < b->number->size){
         deleteNumber(&result);
         return createNumber(0);
+    }
+
+    if(b->number->size == 1 && b->number->value[0] == 0){
+        error("Cannot divide by 0");
     }
 
     while(left > 0){
@@ -49,7 +59,7 @@ NumPointer divideNumbers(NumPointer a, NumPointer b){
             pushVector(result->number, 0);
         }
 
-        count = divideManualNumbers(a->number, b->number, left, right);
+        count = divideManualNumbers(a->number, b->number, a->system, left, right);
         
         pushVector(result->number, count);
 

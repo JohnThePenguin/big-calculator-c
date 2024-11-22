@@ -11,15 +11,16 @@ void handleOperations(struct InputResponse input){
     base = readNextArgument(input.systemIn);
     if(base->number->size == 0) return;
 
-    printf("New calc operation: ");
-    printNumber(base);
-    printf("\n");
+    /*printNumber(base);*/
 
     arg = readNextArgument(input.systemIn);
 
     /*printf("%c\n", chr(arg->number->value[0]));*/
     while(arg->number->size > 0 && wrongOperation == 0){
-        printNumber(arg);
+        /*printNumber(arg);*/
+        toDecimalSystem(base);
+        toDecimalSystem(arg);
+
         switch (input.operation) {
             case '+':
                 rewriteNumber(&base, addNumbers(base, arg));
@@ -43,7 +44,7 @@ void handleOperations(struct InputResponse input){
                 return;
         }
 
-        /* printNumber(base); */
+        printNumber(base);
         rewriteNumber(&arg, readNextArgument(input.systemIn));
     }
 }
@@ -78,6 +79,7 @@ int main(){
         printf("%c\n", input.operation);
         printf("%d\n", input.systemIn);
         printf("%d\n\n", input.systemOut);
+        printf("Results: \n");
         
         if(input.type == 0){
             handleOperations(input);

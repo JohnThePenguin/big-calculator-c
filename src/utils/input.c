@@ -102,7 +102,8 @@ NumPointer readNumber(int system){
         a->number->value[i] = a->number->value[size - i - 1];
         a->number->value[size - i - 1] = temp;
     }
-    
+
+    cleanZeros(a); 
     return a;
 }
 
@@ -110,7 +111,6 @@ NumPointer readNextArgument(int system){
     int n = goToNonWhiteCharacter();
 
     if(n >= 3 || endOfFile){
-        printf("There was more than 3 enters\n\n");
         return createNumber(-1);
     }
     else{

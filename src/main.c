@@ -34,7 +34,7 @@ void handleOperations(struct InputResponse input){
                 divideNumbers(base, arg);
                 break;
             case '^':
-                powerNumbers(&base, arg);
+                powerNumbers(&base, &arg);
                 break;
             default:
                 message[17] = input.operation;
@@ -67,7 +67,7 @@ int main(){
 
     struct InputResponse input;
 
-    openFile("in1.txt");
+    openFile("sample.txt");
 
     do{
         input = handleSegment();

@@ -7,7 +7,7 @@ void fromDecimalSystem(NumPointer* a, int system);
 
 void setSystem(NumPointer* a, int system);
 
-void powerNumbers(NumPointer* a, NumPointer n);
+void powerNumbers(NumPointer* a, NumPointer* n);
 
 int systemOfTwo(NumPointer a, NumPointer *b);
 

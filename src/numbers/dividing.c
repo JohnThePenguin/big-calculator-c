@@ -8,7 +8,7 @@ int divideManualNumbers(VecPointer a, struct Vector *b, int system, int left, in
     int count = 0;
 
     while(subtractNumbers(a, b, system, left, right) == 1){
-        while(a->value[right] == 0) right--;
+        while(right && a->value[right] == 0) right--;
         count++;
     }
 

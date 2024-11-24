@@ -93,6 +93,7 @@ NumPointer readNumber(int system){
         }
         else{
             handleInputError("Number contain characters that are not allowed in numeric system", ERROR);
+            return a;
         }
     } while(isRealCharacter(c = nextChar()));
 
@@ -155,6 +156,10 @@ struct InputResponse getCalculationSegment(char first){
         return handleInputError("(a) Unexpected character, expected ' '", ERROR);
     }
 
+    if(!isDecDigit(checkNextChar())){
+        return handleInputError("(b) Unexpected character, expected base of numbers", ERROR);
+    }
+
     in = readNumber(10);
     systemIn = readIntFromNumber(in);
     deleteNumber(&in);
@@ -176,11 +181,11 @@ struct InputResponse getSystemChangeSegment(char first){
     if(isDecDigit(c)){
         systemIn = (c - '0') + systemIn * 10;
         if(nextChar() != ' '){
-            return handleInputError("(b) Unexpected character, expected ' '", ERROR);
+            return handleInputError("(c) Unexpected character, expected ' '", ERROR);
         }
     }
     else if(c != ' '){
-            return handleInputError("(c) Unexpected character, expected ' '", ERROR);
+            return handleInputError("(d) Unexpected character, expected ' '", ERROR);
         return response;
     }
 
@@ -229,12 +234,20 @@ void skipCurrentSegment(){
     int i = 0;
     char c = 0;
 
-    while(i < 3 || (c = checkNextChar()) != '\n'){
+    while(c = checkNextChar()){
+        /*printf("Checked i:%d, char: %d\n", i, c);*/
         if(c > 32){
             i = 0;
-        } 
-        else if(c == '\n'){
+        }
+        if(c == '\n'){
             i++;
         }
+        if(i == 4){
+            return;
+        }
+        if(endOfFile == ERROR){
+            return;
+        }
+        nextChar();
     }
 }

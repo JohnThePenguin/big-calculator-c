@@ -9,14 +9,14 @@ void handleOperations(struct InputResponse input){
     NumPointer base = NULL, arg = NULL;
 
     base = readNextArgument(input.systemIn);
-    if(base->number->size == 0) return;
 
-    /*printNumber(base);*/
+    /*printf("Is error: %d", inputError);*/
+    if(base->number->size == 0 || inputError == ERROR) return;
 
     arg = readNextArgument(input.systemIn);
 
     /*printf("%c\n", chr(arg->number->value[0]));*/
-    while(arg->number->size > 0 && wrongOperation == 0){
+    while(arg->number->size > 0 && wrongOperation == 0 && inputError != ERROR){
         /*printNumber(arg);*/
 
         switch (input.operation) {
@@ -67,23 +67,26 @@ int main(){
 
     struct InputResponse input;
 
-    openFile("sample2.txt");
+    openFile("../wej/in1.txt");
 
     do{
         input = handleSegment();
 
-        printf("--------------------------\n");
-        printf("%d\n", input.type);
-        printf("%c\n", input.operation);
-        printf("%d\n", input.systemIn);
-        printf("%d\n\n", input.systemOut);
-        printf("Results: \n");
+        if(inputError != ERROR){
+    
+            printf("----------------------------------------\n");
+            printf("Type: %d\n", input.type);
+            if(input.type == 0) printf("Operation: %c\n", input.operation);
+            printf("System in: %d\n", input.systemIn);
+            if(input.type == 1) printf("System out: %d\n", input.systemOut);
+            printf("Results: \n");
         
-        if(input.type == 0){
-            handleOperations(input);
-        }
-        else{
-            handleSystemChanges(input);
+            if(input.type == 0){
+                handleOperations(input);
+            }
+            else{
+                handleSystemChanges(input);
+            }
         }
     } while(endOfFile != ERROR);
     

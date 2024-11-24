@@ -6,6 +6,7 @@
 
 void handleOperations(struct InputResponse input){
     int wrongOperation = 0;
+    char message[] = "Wrong operation:  ";
     NumPointer base = NULL, arg = NULL;
 
     base = readNextArgument(input.systemIn);
@@ -36,7 +37,6 @@ void handleOperations(struct InputResponse input){
                 powerNumbers(&base, arg);
                 break;
             default:
-                char message[] = "Wrong operation:  ";
                 message[17] = input.operation;
                 handleInputError(message, 1);
                 return;
@@ -67,7 +67,7 @@ int main(){
 
     struct InputResponse input;
 
-    openFile("../wej/in1.txt");
+    openFile("in1.txt");
 
     do{
         input = handleSegment();

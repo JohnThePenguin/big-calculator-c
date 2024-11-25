@@ -1,5 +1,6 @@
 #include "vector.h"
 #include "error.h"
+#include "output.h"
 
 #include "numbers_core.h"
 #include "numbers_chars.h"
@@ -108,6 +109,21 @@ void printNumber(NumPointer a){
         }
     }
     printf("\n");
+}
+
+
+void printNumberToFile(NumPointer a){
+    int i = 0;
+
+    if(a == NULL){
+        outputString("<NULL Number>"); 
+    }
+    else{
+        for(i = a->number->size - 1; i >= 0; i--){
+            outputChar(chr(a->number->value[i]));
+        }
+    }
+    outputString("\n\n");
 }
 
 void cleanZeros(NumPointer a){

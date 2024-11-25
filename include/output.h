@@ -8,6 +8,8 @@
 #ifndef OUTPUT_H
 #define OUTPUT_H
 
+#include <stdio.h>
+
 /* Pointer for output file, available from outside */
 extern FILE *outputFile;
 
@@ -34,7 +36,14 @@ void outputInt(int a, char end);
     @param c - character to be written
     @return void
 */
-void outputString(char* cstr[]);
+void outputChar(char c);
+
+/*
+    Function writes character string to output file
+    @param cstr - array of character to be written
+    @return void
+*/
+void outputString(char cstr[]);
 
 /*
     Function closes output file

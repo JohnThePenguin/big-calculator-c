@@ -109,6 +109,13 @@ int readIntFromNumber(NumPointer a);
 void printNumber(NumPointer a);
 
 /* 
+    Function prints number to file using output.h
+    @param a - number pointer
+    @return void
+*/
+void printNumberToFile(NumPointer a);
+
+/* 
     Function clean leading zeros from number
     @param a - number pointer
     @return void

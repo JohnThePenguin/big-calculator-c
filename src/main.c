@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <time.h> 
 
+#include "error.h"
 #include "numbers.h"
 #include "input.h"
 #include "output.h"
@@ -14,11 +15,14 @@ void handleOperations(struct InputResponse input){
     
     base = readNextArgument(input.systemIn);
     if(base->number->size == 0 || inputError == ERROR) return;
+    printNumberToFile(base);
 
     /* Until there is no 4 \n read next arguments, and calculate */ 
     arg = readNextArgument(input.systemIn);
     while(arg->number->size > 0 && wrongOperation == 0 && inputError != ERROR){
-        
+        /* Print argument to file */
+        printNumberToFile(arg);
+
         switch (input.operation) {
             case '+':
                 rewriteNumber(&base, addNumbers(base, arg));
@@ -45,6 +49,7 @@ void handleOperations(struct InputResponse input){
 
         /* Print current result, and replace input */
         printNumber(base);
+        printNumberToFile(base);
         rewriteNumber(&arg, readNextArgument(input.systemIn));
     }
 
@@ -58,16 +63,37 @@ void handleSystemChanges(struct InputResponse input){
     /* Until there is no 4 \n read next arguments, and calculate */ 
     rewriteNumber(&arg, readNextArgument(input.systemIn));
     while(arg->number->size > 0){
+        printNumberToFile(arg);
 
         toDecimalSystem(arg);
         fromDecimalSystem(&arg, input.systemOut);
 
         printNumber(arg);
-        
+        printNumberToFile(arg); 
         rewriteNumber(&arg, readNextArgument(input.systemIn));
     }
 
     deleteNumber(&arg);
+}
+
+void dumpSegment(struct InputResponse input){
+    printf("----------------------------------------\n");
+    printf("Type: %d\n", input.type);
+    if(input.type == 0) printf("Operation: %c\n", input.operation);
+    printf("System in: %d\n", input.systemIn);
+    if(input.type == 1) printf("System out: %d\n", input.systemOut);
+    printf("Results: \n");
+
+    if(input.type == 0){
+        outputChar(input.operation);
+        outputChar(' ');
+        outputInt(input.systemIn, '\n');
+    } 
+    else{
+        outputInt(input.systemIn, ' ');
+        outputInt(input.systemOut, '\n');
+    }
+    outputChar('\n');
 }
 
 int main(int argc, char* argv[]){
@@ -83,13 +109,7 @@ int main(int argc, char* argv[]){
         input = handleSegment();
 
         if(inputError != ERROR){
-    
-            printf("----------------------------------------\n");
-            printf("Type: %d\n", input.type);
-            if(input.type == 0) printf("Operation: %c\n", input.operation);
-            printf("System in: %d\n", input.systemIn);
-            if(input.type == 1) printf("System out: %d\n", input.systemOut);
-            printf("Results: \n");
+            dumpSegment(input);
         
             if(input.type == 0){
                 handleOperations(input);
@@ -97,7 +117,10 @@ int main(int argc, char* argv[]){
             else{
                 handleSystemChanges(input);
             }
+
         }
+
+        outputString("\n\n\n");
     } while(endOfFile != ERROR);
 
     closeInputFile();

@@ -39,7 +39,11 @@ void outputInt(int a, char end){
     fprintf(outputFile, "%d%c", a, end);
 }
 
-void outputString(char* cstr[]){
+void outputChar(char c){
+    fprintf(outputFile, "%c", c);
+}
+
+void outputString(char cstr[]){
     fprintf(outputFile, "%s", cstr);
 }
 

@@ -12,21 +12,32 @@ FILE *inputFile;
 
 int inputError = SUCCESS;
 
-void openFile(const char* c){
+void openInputFile(int argc, char* argv[]){
     size_t size;
+    char* fileName;
 
-    inputFile = fopen(c, "r");
+    if(argc < 2){
+        error("Please pass name of input file as first parameter");
+    }
+
+    fileName = argv[1];
+
+    printf("Trying to open file for input: %s...\n", fileName);
+    inputFile = fopen(fileName, "r");
 
     if(inputFile == NULL){
-        printf("File \"%s\" cannot be opened \n", c);
+        printf("File \"%s\" cannot be opened \n", fileName);
         exit(0x0);
+    }
+    else{
+        printf("Opened\n\n");
     }
 
     size = getFileSize();
     printf("Reading file, size: %ld b\n\n", size);
 }
 
-void closeFile(){
+void closeInputFile(){
     fclose(inputFile);
 }
 

@@ -3,6 +3,7 @@
 
 #include "numbers.h"
 #include "input.h"
+#include "output.h"
 
 void handleOperations(struct InputResponse input){
     int wrongOperation = 0;
@@ -39,12 +40,15 @@ void handleOperations(struct InputResponse input){
             default:
                 message[17] = input.operation;
                 handleInputError(message, 1);
+                deleteNumber(&base);
                 return;
         }
 
         printNumber(base);
         rewriteNumber(&arg, readNextArgument(input.systemIn));
     }
+
+    deleteNumber(&base);
 }
 
 void handleSystemChanges(struct InputResponse input){
@@ -59,15 +63,18 @@ void handleSystemChanges(struct InputResponse input){
         
         rewriteNumber(&arg, readNextArgument(input.systemIn));
     }
+
+    deleteNumber(&arg);
 }
 
-int main(){
+int main(int argc, char* argv[]){
     clock_t c = clock();
     double secondsTaken;
 
     struct InputResponse input;
 
-    openFile("sample.txt");
+    openInputFile(argc, argv);
+    openOutputFile(argc, argv);
 
     do{
         input = handleSegment();
@@ -89,6 +96,9 @@ int main(){
             }
         }
     } while(endOfFile != ERROR);
+
+    closeInputFile();
+    closeOutputFile();
     
     /*
     NumPointer a = createNumber(2);

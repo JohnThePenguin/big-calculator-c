@@ -18,9 +18,9 @@ struct InputResponse{
 
 extern int inputError;
 
-void openFile(const char* c);
+void openInputFile(int argc, char* argv[]);
 
-void closeFile();
+void closeInputFile();
 
 size_t getFileSize();
 

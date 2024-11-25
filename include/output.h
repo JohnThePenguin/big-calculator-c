@@ -5,8 +5,8 @@
         and structures used for writing output to file.
 */
 
-#ifndef VECTOR_H
-#define VECTOR_H
+#ifndef OUTPUT_H
+#define OUTPUT_H
 
 /* Pointer for output file, available from outside */
 extern FILE *outputFile;
@@ -34,7 +34,7 @@ void outputInt(int a, char end);
     @param c - character to be written
     @return void
 */
-void outputChar(char c);
+void outputString(char* cstr[]);
 
 /*
     Function closes output file

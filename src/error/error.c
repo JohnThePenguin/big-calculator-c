@@ -5,6 +5,8 @@
 #include "input.h"
 #include "output.h"
 
+/* Descriptions and comments are in include/error.h */
+
 int endOfFile = SUCCESS;
 
 void error(const char* s){

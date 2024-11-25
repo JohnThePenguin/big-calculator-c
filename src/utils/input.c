@@ -6,6 +6,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+/* Descriptions and comments are in include/input.h */
+
 int bufferRow = 1;
 int bufferColumn = 1;
 FILE *inputFile;
@@ -57,10 +59,14 @@ int isDigit(char c){
     return ('0' <= c && c <= '9') || ('A' <= c && c <= 'F');
 }
 
+/* Is "visible" (non-white) character */
 int isRealCharacter(char c){
     return 32 < c;
 }
 
+/* Function for reading next char from file */
+/* Tracks position of buffer, ignores \r */
+/* Marks flag if read end of file */
 char nextChar(){
     char c = fgetc(inputFile);
 
@@ -82,10 +88,16 @@ char nextChar(){
     return c;
 }
 
+/* Function for only checking, not moving forward */
 char checkNextChar(){
     char c = nextChar();
     ungetc(c, inputFile);
-    bufferColumn--;
+    if(c == '\n'){ /* possible mistake - ignoring */
+        bufferRow--;
+    }
+    else{
+        bufferColumn--;
+    }
     return c;
 }
 
@@ -96,10 +108,12 @@ NumPointer readNumber(int system){
 
     a->system = system;
 
+    /* Skip all white characters */
     while(!isRealCharacter(c = nextChar()));
 
     do{
         if(num(c) < system){
+            /* When character is fine, push it to result */
             pushVector(a->number, num(c));
         }
         else{
@@ -107,7 +121,9 @@ NumPointer readNumber(int system){
             return a;
         }
     } while(isRealCharacter(c = nextChar()));
+    /* As long as character is "non-white" */
 
+    /* Reverse it to big-endian */
     size = a->number->size;
     for(i = 0; i < (size / 2); i++){
         temp = a->number->value[i];
@@ -119,7 +135,9 @@ NumPointer readNumber(int system){
     return a;
 }
 
+/* Same, but counts if number is part of existing question segment */
 NumPointer readNextArgument(int system){
+    /* n - number of \n before non-white character */
     int n = goToNonWhiteCharacter();
 
     if(n >= 3 || endOfFile){
@@ -133,6 +151,8 @@ NumPointer readNextArgument(int system){
 int goToNonWhiteCharacter(){
     char c;
     int i = 0;
+
+    /* As long as character is non-white, count \n */
     while(!endOfFile && (c = checkNextChar()) <= 32){
         if(c == '\n'){
             i++;
@@ -144,12 +164,14 @@ int goToNonWhiteCharacter(){
 
 struct InputResponse handleSegment(){
     char c;
-    
+
+    /* Skip to start of segment */ 
     goToNonWhiteCharacter();
     
     c = nextChar();
     inputError = SUCCESS;
 
+    /* Check is character digit or operation */
     if(isDecDigit(c)){
         return getSystemChangeSegment(c);
     }
@@ -163,6 +185,8 @@ struct InputResponse getCalculationSegment(char first){
     NumPointer in;
     int systemIn;
 
+    /* Format: [first] [digits...*/
+
     if(nextChar() != ' '){
         return handleInputError("(a) Unexpected character, expected ' '", ERROR);
     }
@@ -173,6 +197,11 @@ struct InputResponse getCalculationSegment(char first){
 
     in = readNumber(10);
     systemIn = readIntFromNumber(in);
+
+    if(2 > systemIn || systemIn > 16){
+        return handleInputError("System of numbers on input should be between 2 and 16", ERROR);
+    }
+
     deleteNumber(&in);
 
     response.type = Calculation;
@@ -189,6 +218,10 @@ struct InputResponse getSystemChangeSegment(char first){
     int systemOut;
     char c = nextChar();
 
+    /* Format [first][c?] [digits...] */
+    /* If c is digit than system > 10 */
+    /* else c must be space */
+
     if(isDecDigit(c)){
         systemIn = (c - '0') + systemIn * 10;
         if(nextChar() != ' '){
@@ -203,6 +236,11 @@ struct InputResponse getSystemChangeSegment(char first){
     out = readNumber(10);
     systemOut = readIntFromNumber(out);
     deleteNumber(&out);
+
+    
+    if(2 > systemIn || systemIn > 16 || 2 > systemOut || systemOut > 16){
+        return handleInputError("System of numbers on input should be between 2 and 16", ERROR);
+    }
 
     response.type = SystemChange;
     response.systemIn = systemIn;
@@ -245,8 +283,8 @@ void skipCurrentSegment(){
     int i = 0;
     char c = 0;
 
+    /* Wait for 4 \n without anything visible between it */
     while(c = checkNextChar()){
-        /*printf("Checked i:%d, char: %d\n", i, c);*/
         if(c > 32){
             i = 0;
         }

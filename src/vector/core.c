@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+/* Descriptions and comments are in include/numbers_systems.h */
+
 VecPointer createVector(){
     VecPointer a = (VecPointer)malloc(sizeof(struct Vector));
     a->size = 0;
@@ -32,11 +34,13 @@ void deleteVector(VecPointer* v){
 void copyVector(VecPointer* destination, VecPointer b){
     deleteVector(destination);
 
+    /* Simply copy property by property */
     (*destination) = (VecPointer)malloc(sizeof(struct Vector));
     (*destination)->size = b->size;
     (*destination)->allocated = b->allocated;
     (*destination)->value = (char*)malloc(b->allocated * sizeof(char));
 
+    /* Copy memory from b to destination */
     memcpy(
         (*destination)->value,
         b->value,
@@ -44,6 +48,7 @@ void copyVector(VecPointer* destination, VecPointer b){
     );
 }
 
+/* Deletes destination, overwrites what a points to and links a to destination*/
 void rewriteVector(VecPointer* destination, VecPointer* a){
     deleteVector(destination);
     *destination = *a;
@@ -55,7 +60,7 @@ void setVectorSize(VecPointer v, int size){
         return;
     }
     if(v->allocated > size){
-
+        return;
     }
     else{
         v->value = (char*)realloc(v->value, size * sizeof(char));
@@ -69,6 +74,8 @@ void setVectorSize(VecPointer v, int size){
     }
 }
 
+/* Pushes new value to error, if array is too small, sets new size */
+/* Resizes it to 2*[current size], so complexity is nearly linear */
 int pushVector(VecPointer v, char element){
     if(v->allocated == v->size){
         setVectorSize(v, v->size * 2);

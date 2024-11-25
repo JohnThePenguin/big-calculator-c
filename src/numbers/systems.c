@@ -3,6 +3,8 @@
 #include "numbers_dividing.h"
 #include "numbers_system.h"
 
+/* Descriptions and comments are in include/numbers_systems.h */
+
 void toDecimalSystem(NumPointer a){
     int i = 0;
 
@@ -12,23 +14,21 @@ void toDecimalSystem(NumPointer a){
     NumPointer lastDigit = NULL;
     NumPointer multiplication = NULL;
 
-    /* printNumber(a);
-    printf("%d\n", a->number->size);
-    printf("%c\n", a->number->value[a->number->size - 1] + '0');
-    */
 
     for(i = 0; i < a->number->size; i++){
 
         if(a->number->value[i] > 0){
             lastDigit = createNumber(a->number->value[i]);
             multiplication = multiplyNumbers(power, lastDigit);
-        
+
+            /* Add current digit multiplied by power to result */ 
             rewriteNumber(&result, addNumbers(result, multiplication));
 
             deleteNumber(&lastDigit);
             deleteNumber(&multiplication);
         }
 
+        /* Multiply power by system */
         rewriteNumber(&power, multiplyNumbers(power, system));
     }
 
@@ -45,15 +45,13 @@ void fromDecimalSystem(NumPointer* a, int system){
     NumPointer devisor = createNumber(system);
     NumPointer division = NULL;
 
+    /* Until a is 0 */
     while((*a)->number->size > 1 || (*a)->number->value[0] > 0){
+
+        /* When deviding, a is saved rest of division */
         division = divideNumbers(*a, devisor);
 
-        /*
-        // printNumber(b);
-        // printNumber(*a);
-        // printf("-----------\n");
-        */
-
+        /* Adding rest, rest is not bigger than 16, so we can consider 2 digits*/
         if((*a)->number->size == 1){
             pushVector(result, (*a)->number->value[0]);
         }
@@ -88,13 +86,12 @@ void powerNumbers(NumPointer* a, NumPointer* n){
     int i = 0;
     NumPointer result = createNumber(1);
 
+    /* Convert number to power by to base 2 for splitting calculations */
     setSystem(n, 2);
 
+    /* Using fast-power algorithm */
+    /* Instead of recursion, using 2-base breakdowns */
     for(i = (*n)->number->size - 1; i >= 0; i--){
-        /*
-        printf("\t%c\n", (n->number->value[i] + '0'));
-        printNumber(result);
-        */
 
         rewriteNumber(&result, multiplyNumbers(result, result));
 
@@ -108,11 +105,6 @@ void powerNumbers(NumPointer* a, NumPointer* n){
 
 int systemOfTwo(NumPointer a, NumPointer *b){
     if(a->system != (*b)->system){
-        printf("Comparing: \n");
-        printNumber(a);
-        printNumber(*b);
-        printf("%d %d\n", a->system, (*b)->system);
-
         setSystem(b, a->system);
     }
 

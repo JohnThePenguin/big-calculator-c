@@ -3,21 +3,25 @@
 #include <string.h>
 #include "error.h"
 
+/* Descriptions and comments are in include/output.h */
 
+/* Pointer to file, available outside */
 FILE *outputFile;
 
 void openOutputFile(int argc, char *argv[]){
     char* outputFileName;
     if(argc == 3){
+        /* If file name passed, use passed */
         outputFileName = argv[2];
     }
     else { 
+        /* Convert passed input file name to out_[name]*/
         char* inputFileName = argv[1];
         char* outString = "out_";
         outputFileName = malloc(strlen(inputFileName) + 5);
 
-        strcpy(outputFileName, outString);
-        strcat(outputFileName, inputFileName);
+        strcpy(outputFileName, outString); /* Copy out_ */
+        strcat(outputFileName, inputFileName); /* Merge out_ with input name*/
     }
 
     printf("Trying to open file for output: %s...\n", outputFileName);

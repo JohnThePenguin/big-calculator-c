@@ -10,17 +10,15 @@ void handleOperations(struct InputResponse input){
     char message[] = "Wrong operation:  ";
     NumPointer base = NULL, arg = NULL;
 
+    /* Read two first numbers, and check if they are fine */
+    
     base = readNextArgument(input.systemIn);
-
-    /*printf("Is error: %d", inputError);*/
     if(base->number->size == 0 || inputError == ERROR) return;
 
+    /* Until there is no 4 \n read next arguments, and calculate */ 
     arg = readNextArgument(input.systemIn);
-
-    /*printf("%c\n", chr(arg->number->value[0]));*/
     while(arg->number->size > 0 && wrongOperation == 0 && inputError != ERROR){
-        /*printNumber(arg);*/
-
+        
         switch (input.operation) {
             case '+':
                 rewriteNumber(&base, addNumbers(base, arg));
@@ -38,24 +36,29 @@ void handleOperations(struct InputResponse input){
                 powerNumbers(&base, &arg);
                 break;
             default:
+                /* When operation is not in listed, throw error*/
                 message[17] = input.operation;
                 handleInputError(message, 1);
                 deleteNumber(&base);
                 return;
         }
 
+        /* Print current result, and replace input */
         printNumber(base);
         rewriteNumber(&arg, readNextArgument(input.systemIn));
     }
 
+    deleteNumber(&arg);
     deleteNumber(&base);
 }
 
 void handleSystemChanges(struct InputResponse input){
     NumPointer arg = NULL;
+
+    /* Until there is no 4 \n read next arguments, and calculate */ 
     rewriteNumber(&arg, readNextArgument(input.systemIn));
-    
     while(arg->number->size > 0){
+
         toDecimalSystem(arg);
         fromDecimalSystem(&arg, input.systemOut);
 

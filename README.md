@@ -50,7 +50,7 @@ Program wykrywa błędy w wejściu takie jak
 ### Implementacja
 ---
 Podstawą programu są dwie struktury:
-###### Vector
+##### Vector
 ```c
 struct Vector {
     char* value;
@@ -75,7 +75,7 @@ typedef struct Vector* VecPointer;
 ```
 Wszystkie operacje w wyższej warstwie programu są wykonywane właśnie na nich.
 
-###### Oblicznia
+##### Obliczenia
 Obliczenia zazwyczaj przyjmują dwa ```NumPointer``` i zwracają nowy obiekt.
 Złożolności operacji były już opisane wyżej. Poza potęgowaniem, zostały użyte algorytmy primitywne, taki jakich uczymy się w szkole podstawowej. Potęgowanie zostało zaimplementowane algorytmem szybkiego potęgowania, tzn. dzielenia wykładnika na dwie równe części. Program jest w stanie w ~20s obliczyć 2^(500k) przy kompilacji z O3.
 

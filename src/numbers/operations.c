@@ -96,7 +96,8 @@ int subtractNumbers(VecPointer a, struct Vector *b, int system, int left, int ri
     }
 
     for(i = 0; i <= right - left; i++){
-        if(b->size == i){ /*?*/
+        /* No need for going furher, end of b */
+        if(b->size == i){ 
             return 1;
         }
 

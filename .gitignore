@@ -2,3 +2,4 @@ main
 *.o
 test/systems/tmp
 build
+out_*

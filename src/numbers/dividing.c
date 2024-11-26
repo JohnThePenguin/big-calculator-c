@@ -12,6 +12,7 @@ int divideManualNumbers(VecPointer a, struct Vector *b, int system, int left, in
 
     /* Loop as long as first number is bigger than second */
     while(subtractNumbers(a, b, system, left, right) == 1){
+        /* Escape zeros and add one to result */
         while(right && a->value[right] == 0) right--;
         count++;
     }

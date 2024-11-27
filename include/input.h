@@ -62,6 +62,13 @@ size_t getFileSize();
 int goToNonWhiteCharacter();
 
 /* 
+    Function checks if given character is valid operation (+, *, /, %, ^)
+    @param operation - character to be checked
+    @return int - 1 if valid, 0 otherwise
+*/
+int isValidOperation(char operation);
+
+/* 
     Function reads first digits and creates new number from them
     It skips all white characters before
     It checks if number is in given system

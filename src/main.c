@@ -7,19 +7,24 @@
 #include "output.h"
 
 void handleOperations(struct InputResponse input){
-    int wrongOperation = 0;
     char message[] = "Wrong operation:  ";
     NumPointer base = NULL, arg = NULL;
 
+    /* Check is operation available */
+    if(!isValidOperation(input.operation)){
+        message[17] = input.operation;
+        handleInputError(message, 1);
+        return;
+    }
+
     /* Read two first numbers, and check if they are fine */
-    
     base = readNextArgument(input.systemIn);
     if(base->number->size == 0 || inputError == ERROR) return;
     printNumberToFile(base);
 
     /* Until there is no 4 \n read next arguments, and calculate */ 
     arg = readNextArgument(input.systemIn);
-    while(arg->number->size > 0 && wrongOperation == 0 && inputError != ERROR){
+    while(arg->number->size > 0 && inputError != ERROR){
         /* Print argument to file */
         printNumberToFile(arg);
 
@@ -39,12 +44,6 @@ void handleOperations(struct InputResponse input){
             case '^':
                 powerNumbers(&base, &arg);
                 break;
-            default:
-                /* When operation is not in listed, throw error*/
-                message[17] = input.operation;
-                handleInputError(message, 1);
-                deleteNumber(&base);
-                return;
         }
 
         /* Print current result, and replace input */

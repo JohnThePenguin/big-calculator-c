@@ -102,6 +102,16 @@ char checkNextChar(){
     return c;
 }
 
+int isValidOperation(char operation){
+    return (
+        operation == '+' ||
+        operation == '*' ||
+        operation == '/' ||
+        operation == '%' ||
+        operation == '^'
+    );
+}
+
 NumPointer readNumber(int system){
     char c;
     int i, temp, size;
@@ -261,16 +271,18 @@ struct InputResponse handleInputError(const char* message, int error){
         printf("----------------------------------------\n");
         printf("Warning occurred while processing input:\n");
         printf("\t%s\n", message);
-        printf("\tIn line %d\n", bufferRow);
-        printf("\tIn column %d\n", bufferColumn);
+        printf("\tNearby place:\n");
+        printf("\tLine: %d\n", bufferRow);
+        printf("\tColumn: %d\n", bufferColumn);
         printf("----------------------------------------\n\n");
         return nullResponse;
     } else {
         printf("----------------------------------------\n");
         printf("Error occurred while processing input:\n");
         printf("\t%s\n", message);
-        printf("\tIn line %d\n", bufferRow);
-        printf("\tIn column %d\n", bufferColumn);
+        printf("\tNearby place:\n");
+        printf("\t\tLine: %d\n", bufferRow);
+        printf("\t\tColumn: %d\n", bufferColumn);
         printf("Waiting for triple enter...\n");
         printf("----------------------------------------\n\n");
 

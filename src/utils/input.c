@@ -275,6 +275,7 @@ struct InputResponse handleInputError(const char* message, int error){
         return nullResponse;
     }
     else if(error == WARNING){
+        printf("\033[1;33m");
         printf("----------------------------------------\n");
         printf("Warning occurred while processing input:\n");
         printf("\t%s\n", message);
@@ -282,8 +283,10 @@ struct InputResponse handleInputError(const char* message, int error){
         printf("\tLine: %d\n", bufferRow);
         printf("\tColumn: %d\n", bufferColumn - 1);
         printf("----------------------------------------\n\n");
+        printf("\033[0m");
         return nullResponse;
     } else {
+        printf("\033[1;31m");
         printf("----------------------------------------\n");
         printf("Error occurred while processing input:\n");
         printf("\t%s\n", message);
@@ -292,7 +295,7 @@ struct InputResponse handleInputError(const char* message, int error){
         printf("\t\tColumn: %d\n", bufferColumn - 1);
         printf("Waiting for triple enter...\n");
         printf("----------------------------------------\n\n");
-
+        printf("\033[0m");
         skipCurrentSegment();
     }
 

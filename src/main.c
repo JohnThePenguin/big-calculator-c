@@ -68,7 +68,7 @@ void handleSystemChanges(struct InputResponse input){
 }
 
 void dumpSegment(struct InputResponse input){
-    printf("----------------------------------------\n");
+    printf("\n\n----------------------------------------\n");
     printf("Type: %d\n", input.type);
     if(input.type == 0) printf("Operation: %c\n", input.operation);
     printf("System in: %d\n", input.systemIn);

@@ -7,15 +7,7 @@
 #include "output.h"
 
 void handleOperations(struct InputResponse input){
-    char message[] = "Wrong operation:  ";
     NumPointer base = NULL, arg = NULL;
-
-    /* Check is operation available */
-    if(!isValidOperation(input.operation)){
-        message[17] = input.operation;
-        handleInputError(message, 1);
-        return;
-    }
 
     /* Read two first numbers, and check if they are fine */
     base = readNextArgument(input.systemIn);

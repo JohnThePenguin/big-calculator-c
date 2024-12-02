@@ -195,8 +195,15 @@ struct InputResponse getCalculationSegment(char first){
     struct InputResponse response;
     NumPointer in;
     int systemIn;
+    char operationMessage[] = "Wrong operation:  ";
 
     /* Format: [first] [digits...*/
+
+    /* Check is operation available */
+    if(!isValidOperation(first)){
+        operationMessage[17] = first;
+        return handleInputError(operationMessage, 1);
+    }
 
     if(nextChar() != ' '){
         return handleInputError("(a) Unexpected character, expected ' '", ERROR);
@@ -273,7 +280,7 @@ struct InputResponse handleInputError(const char* message, int error){
         printf("\t%s\n", message);
         printf("\tNearby place:\n");
         printf("\tLine: %d\n", bufferRow);
-        printf("\tColumn: %d\n", bufferColumn);
+        printf("\tColumn: %d\n", bufferColumn - 1);
         printf("----------------------------------------\n\n");
         return nullResponse;
     } else {
@@ -282,7 +289,7 @@ struct InputResponse handleInputError(const char* message, int error){
         printf("\t%s\n", message);
         printf("\tNearby place:\n");
         printf("\t\tLine: %d\n", bufferRow);
-        printf("\t\tColumn: %d\n", bufferColumn);
+        printf("\t\tColumn: %d\n", bufferColumn - 1);
         printf("Waiting for triple enter...\n");
         printf("----------------------------------------\n\n");
 
